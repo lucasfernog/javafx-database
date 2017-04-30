@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.StackPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.JFXTreeTableColumn?>
+<StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1" styleClass="view-container"
+               xmlns="http://javafx.com/javafx/2.2">
+    <VBox spacing="16">
+        <HBox spacing="8">
+            <JFXButton fx:id="mInsertButton" styleClass="btn-success" text="Incluir"/>
+            <JFXButton fx:id="mButtonClearQuery" styleClass="btn-warning" text="Limpar pesquisa"/>
+        </HBox>
+
+        <StackPane StackPane.alignment="CENTER_RIGHT" maxWidth="200">
+            <JFXTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
+        </StackPane>
+
+        <JFXTreeTableView fx:id="mTable">
+            <columns>
+                <JFXTreeTableColumn fx:id="mCodeColumn"
+                                    minWidth="133" text="Código" prefWidth="133"
+                                    resizable="false"/>
+            </columns>
+        </JFXTreeTableView>
+    </VBox>
+</StackPane>
