@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import database.Database;
 import database.model.Bus;
 import io.datafx.controller.ViewController;
 import javafx.collections.FXCollections;
@@ -33,10 +34,16 @@ public class BusController {
         mTable.setEditable(false);
 
         ObservableList<Bus> busList = FXCollections.observableArrayList();
-        busList.add(new Bus(1));
-        busList.add(new Bus(2));
-        mTable.setRoot(new RecursiveTreeItem<>(busList, RecursiveTreeObject::getChildren));
 
+        Database.from(Bus.class)
+                .select("code")
+                .execute(new Database.Callback<Bus>() {
+                    public void onSuccess(Bus bus) {
+                        busList.add(bus);
+                    }
+                });
+
+        mTable.setRoot(new RecursiveTreeItem<>(busList, RecursiveTreeObject::getChildren));
         mTable.setShowRoot(false);
     }
 }

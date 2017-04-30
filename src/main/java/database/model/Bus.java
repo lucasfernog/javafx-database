@@ -1,12 +1,33 @@
 package database.model;
 
+import database.RowMap;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Bus extends Model<Bus> {
-    private SimpleIntegerProperty mCode;
+    private SimpleIntegerProperty mCode = new SimpleIntegerProperty();
 
-    public Bus(Integer code) {
-        mCode = new SimpleIntegerProperty(code);
+    @Override
+    public Bus from(RowMap rowMap) {
+        Bus bus = new Bus();
+
+        Integer primaryKey = rowMap.getAsInteger("id");
+        if (primaryKey != null)
+            bus.setPrimaryKey(primaryKey);
+
+        Integer code = rowMap.getAsInteger("code");
+        if (code != null)
+            bus.setCode(code);
+
+        return bus;
+    }
+
+    @Override
+    RowMap getValues() {
+        RowMap row = new RowMap();
+
+        row.put("code", getCode());
+
+        return row;
     }
 
     public Integer getCode() {
