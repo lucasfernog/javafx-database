@@ -16,10 +16,11 @@ public class BusDialogController extends ModelDialogController<Bus> {
         if (mModel == null)
             mModel = new Bus();
 
-        //TODO: feedback de erro no textfield
         String code = mCode.getText();
-        if (code.equals(""))
+        if (code.equals("")) {
+            Utils.showTextFieldValidationError(mCode);
             return null;
+        }
 
         mModel.setCode(Integer.valueOf(code));
 
@@ -40,5 +41,6 @@ public class BusDialogController extends ModelDialogController<Bus> {
     public void initialize() {
         super.initialize();
         Utils.numericTextInputControl(mCode);
+        Utils.setupValidatedTextField(mCode, "O código é obrigatório.");
     }
 }
