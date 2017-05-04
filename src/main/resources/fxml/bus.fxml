@@ -7,12 +7,16 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
 <?import com.jfoenix.controls.JFXTreeTableColumn?>
-<StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1" styleClass="view-container"
-               xmlns="http://javafx.com/javafx/2.2">
-    <VBox spacing="16">
-        <HBox spacing="8">
-            <JFXButton fx:id="mInsertButton" styleClass="btn-success" text="Incluir"/>
-            <JFXButton fx:id="mButtonClearQuery" styleClass="btn-warning" text="Limpar pesquisa"/>
+<?import javafx.scene.layout.Pane?>
+
+<?import app.views.ButtonColumn?>
+<StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx/2.2">
+    <VBox spacing="16" styleClass="view-container">
+        <HBox>
+            <JFXButton fx:id="mSearchButton" styleClass="btn-primary" text="Pesquisar"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <JFXButton fx:id="mClearButton" styleClass="btn-warning" text="Limpar pesquisa"/>
         </HBox>
 
         <StackPane StackPane.alignment="CENTER_RIGHT" maxWidth="200">
@@ -24,7 +28,14 @@
                 <JFXTreeTableColumn fx:id="mCodeColumn"
                                     minWidth="133" text="Código" prefWidth="133"
                                     resizable="false"/>
+                <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
             </columns>
         </JFXTreeTableView>
+
+        <Pane VBox.vgrow="ALWAYS"/>
+        <HBox>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <JFXButton fx:id="mInsertButton" styleClass="btn-danger, fab, fab-add"/>
+        </HBox>
     </VBox>
 </StackPane>

@@ -2,6 +2,7 @@ package util;
 
 import com.jfoenix.controls.JFXTreeTableColumn;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TreeTableColumn;
 
 import java.util.ArrayList;
@@ -15,6 +16,14 @@ public class Utils {
                 return mapper.apply(param.getValue().getValue());
             } else {
                 return column.getComputedValue(param);
+            }
+        });
+    }
+
+    public static void numericTextInputControl(TextInputControl textInputControl) {
+        textInputControl.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textInputControl.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
     }

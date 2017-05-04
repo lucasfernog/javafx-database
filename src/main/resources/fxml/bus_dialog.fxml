@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.VBox?>
+<StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.BusDialogController"
+           xmlns="http://javafx.com/javafx/2.2">
+    <JFXDialogLayout>
+
+        <!-- Título -->
+        <heading>
+            <Label>Ônibus</Label>
+        </heading>
+
+        <!-- Conteúdo -->
+        <body>
+            <VBox spacing="16">
+                <JFXTextField fx:id="mCode" promptText="Código" labelFloat="true"/>
+            </VBox>
+
+        </body>
+
+        <!-- Ações -->
+        <actions>
+            <JFXButton fx:id="mSaveButton" styleClass="btn-primary, btn-flat, btn-dialog">SALVAR
+            </JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</StackPane>

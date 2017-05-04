@@ -60,7 +60,7 @@
 }
 
 .jfx-dialog-layout {
-    -fx-padding: 24.0px 24.0px 16.0px 24.0px;
+    -fx-padding: 24.0px 24.0px 0px 24.0px;
     -fx-text-fill: rgba(0.0, 0.0, 0.0, 0.87);
 }
 
@@ -68,7 +68,11 @@
     -fx-font-size: 20.0px;
     -fx-font-weight: BOLD;
     -fx-alignment: center-left;
-    -fx-padding: 5.0 0.0 5.0 0.0;
+    -fx-padding: 5.0 0.0 20.0 0.0;
+}
+
+.jfx-layout-body {
+    -fx-padding: 0 0 24 0;
 }
 
 .jfx-layout-body .label {
@@ -78,12 +82,11 @@
 }
 
 .jfx-layout-actions {
-    -fx-padding: 10.0px 0.0 0.0 0.0;
+    -fx-padding: 8 -16 8 8;
     -fx-alignment: center-right;
 }
 
-.dialog-accept {
-    -fx-text-fill: #03A9F4;
+.dialog-button {
     -fx-font-weight: BOLD;
     -fx-padding: 0.7em 0.8em;
 }
@@ -343,6 +346,11 @@
     -fx-background-color: #106cc8;
 }
 
+.btn-flat {
+    -fx-background-color: transparent;
+    -jfx-button-type: FLAT;
+}
+
 .btn-success {
     -fx-text-fill:WHITE;
     -fx-background-color: #4caf50;
@@ -367,7 +375,50 @@
     -fx-text-fill:WHITE;
     -fx-background-color: #2196f3;
 }
-196f3
+
+.btn-dialog {
+    -fx-text-fill:#106cc8;
+    -fx-font-weight: BOLD;
+    -fx-padding: 0.7em 0.8em;
+    -fx-font-size: 14px;
+}
+
+.column-button {
+     -fx-min-width: 48px;
+     -fx-min-height: 48px;
+     -fx-max-width: 48px;
+     -fx-max-height: 48px;
+}
+
+.btn-column-container {
+    -fx-padding: 0 0 0 0;
+}
+
+.btn-table {
+     -fx-min-width: 48px;
+     -fx-min-height: 48px;
+     -fx-max-width: 48px;
+     -fx-max-height: 48px;
+     -fx-background-radius: 48px;
+     -fx-background-color: transparent;
+}
+
+.column-edit .button {
+    -fx-graphic: url("/images/ic_edit.png");
+}
+
+.fab {
+    -jfx-button-type: FLAT;
+    -fx-min-width: 48px;
+    -fx-min-height: 48px;
+    -fx-max-width: 48px;
+    -fx-max-height: 48px;
+    -fx-background-radius: 48px;
+}
+
+.fab-add {
+    -fx-graphic: url("/images/ic_add.png");
+}
 
 /*******************************************************************************
 *                                                                              *
@@ -877,8 +928,8 @@
 
 .tree-table-view .tree-table-cell {
     -fx-border-width: 0 0 0 0;
-    -fx-padding: 16 0 16 0;
-    -fx-alignment: top-center;
+    -fx-padding: 32 0 16 0;
+    -fx-alignment: center;
 }
 
 .tree-table-view .column-overlay {

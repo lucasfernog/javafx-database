@@ -58,34 +58,49 @@ public class Database {
      * @return a cláusula SQL do insert/update
      */
     private String getSaveQuery(String tableName, Map<String, Object> columnValuePairs, QueryBuilder.Where where) {
-        StringBuilder insertSQL = new StringBuilder();
+        StringBuilder saveSQL = new StringBuilder();
 
-        insertSQL.append((where == null ? "INSERT INTO " : "UPDATE ") + tableName);
+        boolean inserting = where == null;
 
-        StringBuilder columns = new StringBuilder();
-        StringBuilder values = new StringBuilder();
-        boolean first = true;
-        for (Map.Entry<String, Object> value : columnValuePairs.entrySet()) {
-            if (first)
-                first = false;
-            else {
-                columns.append(",");
-                values.append(",");
+        saveSQL.append((inserting ? "INSERT INTO " : "UPDATE "))
+                .append(tableName);
+
+        if (inserting) {
+            StringBuilder columns = new StringBuilder();
+            StringBuilder values = new StringBuilder();
+            boolean first = true;
+            for (Map.Entry<String, Object> pair : columnValuePairs.entrySet()) {
+                if (first)
+                    first = false;
+                else {
+                    columns.append(",");
+                    values.append(",");
+                }
+                columns.append(pair.getKey());
+                values.append(pair.getValue());
             }
-            columns.append(value.getKey());
-            values.append(value.getValue());
+
+            saveSQL.append(" (")
+                    .append(columns)
+                    .append(") VALUES (")
+                    .append(values)
+                    .append(")");
+        } else {
+            saveSQL.append(" SET ");
+            int i = 0;
+            for (Map.Entry<String, Object> pair : columnValuePairs.entrySet()) {
+                saveSQL.append(pair.getKey())
+                        .append("=")
+                        .append(pair.getValue());
+                if (i != columnValuePairs.size() - 1)
+                    saveSQL.append(",");
+                i++;
+            }
+
+            saveSQL.append(" WHERE ").append(where.toString());
         }
 
-        insertSQL.append(" (")
-                .append(columns)
-                .append(") VALUES (")
-                .append(values)
-                .append(")");
-
-        if (where != null)
-            insertSQL.append(where.toString());
-
-        return insertSQL.toString();
+        return saveSQL.toString();
     }
 
     /**
@@ -123,6 +138,7 @@ public class Database {
                 else
                     callback.onError();
             } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
                 callback.onError();
             } finally {
                 if (resultSet != null)

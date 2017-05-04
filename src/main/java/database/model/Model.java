@@ -15,12 +15,12 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
     /**
      * Mapeia as colunas e seus respectivos valores da tupla do objeto
      * OBS: A primery key é mapeada automaticamente
+     *
      * @return um Map que relaciona coluna e seu respectivo valor
      */
     abstract RowMap getValues();
 
     /**
-     *
      * @param rowMap O registro a ser transformado em objeto
      * @return a instância do objeto que contem as propriedades salvas no map
      */
@@ -30,14 +30,19 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
         return getClass().getSimpleName().replaceAll("([^_A-Z])([A-Z])", "$1_$2").toLowerCase();
     }
 
+    public String getPrimaryKeyName() {
+        return "id";
+    }
+
     /**
      * Proprerty da primary key
      * Sobrescreva esse método se deseja utilizar uma coluna com property de nome específico como primary key
+     *
      * @return
      */
     protected SimpleIntegerProperty primaryKeyProperty() {
         if (mPrimaryKey == null)
-            mPrimaryKey = new SimpleIntegerProperty();
+            mPrimaryKey = new SimpleIntegerProperty(this, getPrimaryKeyName());
         return mPrimaryKey;
     }
 
@@ -51,6 +56,7 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
     /**
      * Inicia o QueryBuilder com as colunas a serem selecionadas
+     *
      * @param columns null para selecionar todas, ou as colunas específicas a serem selecionadas
      * @return o QueryBuilder para encadeamento de chamadas
      */
@@ -70,6 +76,7 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
     /**
      * Salva a model assincronamente
+     *
      * @return um objeto de callback para notificação de sucesso/erro
      */
     public SaveCallback save() {
@@ -83,12 +90,14 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
         RowMap values = getValues();
 
-        //mapeamento primary key
         int primaryKey = getPrimaryKey();
         if (primaryKey > 0)
-            values.put("id", primaryKey);
-
-        Database.getInstance().insert(getTableName(), values, callbackInternal);
+            Database.getInstance().update(getTableName(),
+                    values,
+                    new QueryBuilder.Where(primaryKeyProperty().getName(), "=", primaryKey),
+                    callbackInternal);
+        else
+            Database.getInstance().insert(getTableName(), values, callbackInternal);
 
         return saveCallback;
     }

@@ -30,11 +30,11 @@ public class Bus extends Model<Bus> {
         return row;
     }
 
-    public Integer getCode() {
+    public int getCode() {
         return mCode.get();
     }
 
-    public void setCode(Integer code) {
+    public void setCode(int code) {
         mCode.set(code);
     }
 

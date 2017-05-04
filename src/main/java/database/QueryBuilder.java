@@ -203,6 +203,7 @@ public class QueryBuilder<T extends Model> {
 
     /**
      * Constrói a cláusula SQL
+     *
      * @return o query construído
      */
     @Override
@@ -248,6 +249,10 @@ public class QueryBuilder<T extends Model> {
         private String mComparator;
         private Object mValue;
 
+        public Where(String column, String comparator, Object value) {
+            this(null, column, comparator, value);
+        }
+
         Where(String logicalOperator, String column, String comparator, Object value) {
             mLogicalOperator = logicalOperator;
             mColumn = column;
@@ -259,9 +264,9 @@ public class QueryBuilder<T extends Model> {
         public String toString() {
             StringBuilder where = new StringBuilder();
 
-            where.append(mLogicalOperator)
-                    .append(" ")
-                    .append(mColumn)
+            if (mLogicalOperator != null)
+                where.append(mLogicalOperator).append(" ");
+            where.append(mColumn)
                     .append(" ")
                     .append(mComparator)
                     .append(" ");
