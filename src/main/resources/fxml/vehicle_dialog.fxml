@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.layout.HBox?>
+<StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="app.controllers.model.dialog.VehicleDialogController"
+           xmlns="http://javafx.com/javafx/2.2">
+    <JFXDialogLayout>
+
+        <!-- Título -->
+        <heading>
+            <Label>Veículo</Label>
+        </heading>
+
+        <!-- Conteúdo -->
+        <body>
+            <VBox styleClass="column">
+                <HBox styleClass="row" VBox.vgrow="ALWAYS">
+                    <JFXComboBox fx:id="mManufacturer" promptText="Fabricante" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox styleClass="row" VBox.vgrow="ALWAYS">
+                    <JFXTextField fx:id="mModelTextField" promptText="Modelo" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <JFXTextField fx:id="mLicensePlate" promptText="Placa" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+
+        </body>
+
+        <!-- Ações -->
+        <actions>
+            <JFXButton fx:id="mSaveButton" styleClass="btn-primary, btn-flat, btn-dialog">SALVAR
+            </JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</StackPane>

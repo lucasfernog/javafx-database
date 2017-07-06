@@ -9,6 +9,6 @@
         <String fx:value="side-menu"/>
     </styleClass>
     <JFXListView fx:id="mSideList">
-        <Label fx:id="mBusItem">Ônibus</Label>
+        <Label fx:id="mVehicleItem">Veículos</Label>
     </JFXListView>
 </StackPane>

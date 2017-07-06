@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.controllers.model.query.VehicleController;
 import app.views.ExtendedAnimatedFlowContainer;
 import com.jfoenix.controls.*;
 import io.datafx.controller.ViewController;
@@ -60,7 +61,7 @@ public class MainController {
 
         mContext = new ViewFlowContext();
         //  controller padrão (tela inicial)
-        Flow innerFlow = new Flow(BusController.class);
+        Flow innerFlow = new Flow(VehicleController.class);
         final FlowHandler flowHandler = innerFlow.createHandler(mContext);
         mContext.register("ContentFlowHandler", flowHandler);
         mContext.register("ContentFlow", innerFlow);

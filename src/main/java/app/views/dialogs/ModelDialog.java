@@ -1,6 +1,6 @@
 package app.views.dialogs;
 
-import app.controllers.ModelDialogController;
+import app.controllers.model.dialog.ModelDialogController;
 import com.jfoenix.controls.JFXDialog;
 import database.model.Model;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-abstract class ModelDialog<M extends Model, C extends ModelDialogController<M>> extends JFXDialog {
+public abstract class ModelDialog<M extends Model, C extends ModelDialogController<M>> extends JFXDialog {
 
     ModelDialog(StackPane dialogContainer, String xmlPath) throws IOException {
         this(dialogContainer, xmlPath, null);

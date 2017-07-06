@@ -13,7 +13,8 @@ public class Database {
     private static final String HOST = "localhost";
     private static final String PORT = "5432";
     private static final String DATABASE_NAME = "app";
-    private static final String URL = "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DATABASE_NAME;
+    private static final String SCHEMA = "onibus";
+    private static final String URL = "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DATABASE_NAME + "?currentSchema=" + SCHEMA;
     private static final String USER = "postgres";
     private static final String PASSWORD = "root";
 
@@ -77,7 +78,8 @@ public class Database {
                     values.append(",");
                 }
                 columns.append(pair.getKey());
-                values.append(pair.getValue());
+                Object value = pair.getValue();
+                values.append(value instanceof String ? ("'" + value + "'") : value);
             }
 
             saveSQL.append(" (")
@@ -91,7 +93,7 @@ public class Database {
             for (Map.Entry<String, Object> pair : columnValuePairs.entrySet()) {
                 saveSQL.append(pair.getKey())
                         .append("=")
-                        .append(pair.getValue());
+                        .append(pair.getValue() instanceof String ? ("'" + pair.getValue() + "'") : pair.getValue());
                 if (i != columnValuePairs.size() - 1)
                     saveSQL.append(",");
                 i++;
@@ -191,6 +193,7 @@ public class Database {
                     callback.onSuccess(row);
                 }
             } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
                 callback.onError();
             }
         });

@@ -31,16 +31,10 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
     }
 
     public String getPrimaryKeyName() {
-        return "id";
+        return "codigo";
     }
 
-    /**
-     * Proprerty da primary key
-     * Sobrescreva esse método se deseja utilizar uma coluna com property de nome específico como primary key
-     *
-     * @return
-     */
-    protected SimpleIntegerProperty primaryKeyProperty() {
+    public SimpleIntegerProperty primaryKeyProperty() {
         if (mPrimaryKey == null)
             mPrimaryKey = new SimpleIntegerProperty(this, getPrimaryKeyName());
         return mPrimaryKey;
@@ -50,7 +44,7 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
         primaryKeyProperty().set(primaryKey);
     }
 
-    protected int getPrimaryKey() {
+    public int getPrimaryKey() {
         return primaryKeyProperty().get();
     }
 

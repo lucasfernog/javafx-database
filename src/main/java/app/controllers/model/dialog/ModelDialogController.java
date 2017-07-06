@@ -1,4 +1,4 @@
-package app.controllers;
+package app.controllers.model.dialog;
 
 import com.jfoenix.controls.JFXButton;
 import database.model.Model;

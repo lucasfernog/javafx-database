@@ -12,7 +12,7 @@
 <?import app.views.ButtonColumn?>
 <StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/2.2">
-    <VBox spacing="16" styleClass="view-container">
+    <VBox styleClass="query-container">
         <HBox>
             <JFXButton fx:id="mSearchButton" styleClass="btn-primary" text="Pesquisar"/>
             <Pane HBox.hgrow="ALWAYS"/>

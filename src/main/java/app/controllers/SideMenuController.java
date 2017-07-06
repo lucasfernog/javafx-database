@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.controllers.model.query.VehicleController;
 import com.jfoenix.controls.JFXListView;
 import io.datafx.controller.ViewController;
 import io.datafx.controller.flow.Flow;
@@ -23,7 +24,7 @@ public class SideMenuController {
 
     @FXML
     @ActionTrigger("buttons")
-    private Label mBusItem;
+    private Label mVehicleItem;
 
     @FXML
     private JFXListView<Label> mSideList;
@@ -48,7 +49,7 @@ public class SideMenuController {
         Flow contentFlow = (Flow) mContext.getRegisteredObject("ContentFlow");
 
         //Menu handler
-        bindNodeToController(mBusItem, BusController.class, contentFlow, contentFlowHandler);
+        bindNodeToController(mVehicleItem, VehicleController.class, contentFlow, contentFlowHandler);
     }
 
     private void bindNodeToController(Node node, Class<?> controllerClass, Flow flow, FlowHandler flowHandler) {
