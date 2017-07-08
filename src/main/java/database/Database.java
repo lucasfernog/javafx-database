@@ -139,12 +139,12 @@ public class Database {
                     if (resultSet.next())
                         callback.onSuccess(resultSet.getInt(1));
                     else
-                        callback.onError();
+                        callback.onError(new SQLException("getGeneratedKeys failed"));
                 } else
                     callback.onSuccess((Integer) null);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
-                callback.onError();
+                callback.onError(e);
             } finally {
                 if (resultSet != null)
                     closeResultSet(resultSet);
@@ -197,7 +197,7 @@ public class Database {
                 }
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
-                callback.onError();
+                callback.onError(e);
             }
         });
     }
@@ -227,7 +227,7 @@ public class Database {
         }
 
         public interface OnErrorListener {
-            void onError();
+            void onError(Exception exception);
         }
 
         private OnSuccessListener<R> mOnSuccessListener;
@@ -248,9 +248,9 @@ public class Database {
                 mOnSuccessListener.onSuccess(response);
         }
 
-        public void onError() {
+        public void onError(Exception exception) {
             if (mOnErrorListener != null)
-                mOnErrorListener.onError();
+                mOnErrorListener.onError(exception);
         }
 
         public OnErrorListener getOnErrorListener() {

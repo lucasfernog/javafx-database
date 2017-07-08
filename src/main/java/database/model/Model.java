@@ -127,9 +127,9 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
                 mOnSuccessListener.onSuccess();
         }
 
-        void onError() {
+        void onError(Exception exception) {
             if (mOnErrorListener != null)
-                mOnErrorListener.onError();
+                mOnErrorListener.onError(exception);
         }
 
     }

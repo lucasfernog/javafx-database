@@ -103,8 +103,9 @@ public abstract class ModelDialogController<T extends Model> {
                     mCloseDialogCallback.closeDialog();
                     if (mOnSaveListener != null)
                         mOnSaveListener.onSave(mModel);
-                }).onError(() -> {
-                    mCloseDialogCallback.closeDialog();
+                }).onError((exception) -> {
+                    exception.printStackTrace();
+                    //TODO handle
                 });
         });
     }
