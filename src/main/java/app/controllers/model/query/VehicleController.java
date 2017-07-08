@@ -29,7 +29,7 @@ public class VehicleController extends ModelQueryController<Vehicle> {
         ObservableList<Vehicle> vehicleList = FXCollections.observableArrayList();
 
         Database.from(Vehicle.class)
-                .select("codigo", "placa", "fabricante", "modelo")
+                .select("codigo", "placa", "modelo")
                 .execute(new Database.Callback<Vehicle>() {
                     public void onSuccess(Vehicle vehicle) {
                         vehicleList.add(vehicle);

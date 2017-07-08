@@ -27,7 +27,7 @@ public class MainController {
     private ViewFlowContext mContext;
 
     @FXML
-    private StackPane mRoot;
+    private static StackPane mRoot;
 
     @FXML
     private StackPane mTitleBurgerContainer;
@@ -37,6 +37,10 @@ public class MainController {
 
     @FXML
     private JFXDrawer mDrawer;
+
+    public static StackPane getRoot() {
+        return mRoot;
+    }
 
     @PostConstruct
     public void init() throws IOException, FlowException {

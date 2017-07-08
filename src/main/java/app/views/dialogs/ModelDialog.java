@@ -12,6 +12,12 @@ import java.io.IOException;
 
 public abstract class ModelDialog<M extends Model, C extends ModelDialogController<M>> extends JFXDialog {
 
+    public interface OnSaveListener<M> {
+        void onSave(M item);
+    }
+
+    private C controller;
+
     ModelDialog(StackPane dialogContainer, String xmlPath) throws IOException {
         this(dialogContainer, xmlPath, null);
     }
@@ -32,11 +38,15 @@ public abstract class ModelDialog<M extends Model, C extends ModelDialogControll
         //define layout como conteúdo do dialog
         setContent((Region) root);
 
-        C controller = loader.getController();
+        controller = loader.getController();
         controller.setCloseDialogCallback(this::close);
         //injeta a model no controller
         if (model != null) {
             controller.setModel(model, canSave);
         }
+    }
+
+    public void setOnSaveListener(OnSaveListener<M> onSaveListener) {
+        controller.setOnSaveListener(onSaveListener);
     }
 }

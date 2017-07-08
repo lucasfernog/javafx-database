@@ -8,6 +8,7 @@ import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import database.model.Model;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -41,7 +42,9 @@ public abstract class ModelQueryController<T extends Model<T>> {
     protected void init() {
         mTable.setEditable(false);
 
-        mTable.setRoot(new RecursiveTreeItem<>(getList(), RecursiveTreeObject::getChildren));
+        ObservableList<T> list = getList();
+
+        mTable.setRoot(new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren));
         mTable.setShowRoot(false);
 
         //Visualizar
@@ -51,10 +54,10 @@ public abstract class ModelQueryController<T extends Model<T>> {
         });
 
         //Incluir
-        mInsertButton.setOnAction(event -> newModelDialog());
+        mInsertButton.addEventHandler(ActionEvent.ACTION, event -> newModelDialog());
 
         //Alterar
-        mEditColumn.setOnButtonClickListener(index -> showModelDialog(getList().get(index), true));
+        mEditColumn.setOnButtonClickListener(index -> showModelDialog(list.get(index), true));
     }
 
     protected JFXTreeTableView getTable() {

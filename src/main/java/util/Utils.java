@@ -1,9 +1,26 @@
 package util;
 
+import database.model.Model;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Utils {
+
+    public static <T extends Model> T find(ObservableList<T> list, int key) {
+        for (T item : list)
+            if (item.getPrimaryKey() == key)
+                return item;
+        return null;
+    }
+
+    public static <T> ObservableList<T> filter(ObservableList<T> list, Predicate<T> predicate) {
+        return FXCollections.observableArrayList(list.stream().filter(predicate).collect(Collectors.toList()));
+    }
 
     public static String join(CharSequence delimiter, Object[] tokens) {
         StringBuilder sb = new StringBuilder();

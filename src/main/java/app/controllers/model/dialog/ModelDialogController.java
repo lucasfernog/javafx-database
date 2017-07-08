@@ -1,7 +1,9 @@
 package app.controllers.model.dialog;
 
+import app.views.dialogs.ModelDialog;
 import com.jfoenix.controls.JFXButton;
 import database.model.Model;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
 
@@ -21,6 +23,8 @@ public abstract class ModelDialogController<T extends Model> {
         void closeDialog();
     }
 
+    private ModelDialog.OnSaveListener<T> mOnSaveListener;
+
     @FXML
     private JFXButton mSaveButton;
 
@@ -28,6 +32,10 @@ public abstract class ModelDialogController<T extends Model> {
 
     T mModel;
     private boolean mCanSave;
+
+    public void setOnSaveListener(ModelDialog.OnSaveListener<T> onSaveListener) {
+        mOnSaveListener = onSaveListener;
+    }
 
     /**
      * Define a model a ser exibida no dialog
@@ -88,11 +96,13 @@ public abstract class ModelDialogController<T extends Model> {
      * Método invocado pelo FXMLLoader
      */
     public void initialize() {
-        mSaveButton.setOnAction(e -> {
+        mSaveButton.addEventHandler(ActionEvent.ACTION, e -> {
             Model.SaveCallback callback = saveModel();
             if (callback != null)
                 callback.onSuccess(() -> {
                     mCloseDialogCallback.closeDialog();
+                    if (mOnSaveListener != null)
+                        mOnSaveListener.onSave(mModel);
                 }).onError(() -> {
                     mCloseDialogCallback.closeDialog();
                 });

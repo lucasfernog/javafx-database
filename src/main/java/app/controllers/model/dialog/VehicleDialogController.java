@@ -1,10 +1,12 @@
 package app.controllers.model.dialog;
 
-import com.jfoenix.controls.JFXComboBox;
+import app.controllers.MainController;
+import app.views.AddEditComboBox;
+import app.views.dialogs.VehicleModelDialog;
 import com.jfoenix.controls.JFXTextField;
-import database.model.Manufacturer;
 import database.model.Vehicle;
 import database.model.Model;
+import database.model.VehicleModel;
 import javafx.fxml.FXML;
 import util.NodeUtils;
 
@@ -13,9 +15,7 @@ public class VehicleDialogController extends ModelDialogController<Vehicle> {
     @FXML
     private JFXTextField mLicensePlate;
     @FXML
-    private JFXComboBox<Manufacturer> mManufacturer;
-    @FXML
-    private JFXTextField mModelTextField;
+    private AddEditComboBox<VehicleModel, VehicleModelDialogController> mModelComboBox;
 
     @Override
     Model.SaveCallback saveModel() {
@@ -23,12 +23,11 @@ public class VehicleDialogController extends ModelDialogController<Vehicle> {
             mModel = new Vehicle();
 
 
-        if (!NodeUtils.validateRequiredTextFields(mLicensePlate, mModelTextField) || !NodeUtils.validateRequiredComboBoxes(mManufacturer))
+        if (!(NodeUtils.validateRequiredTextFields(mLicensePlate) || NodeUtils.validateRequiredComboBoxes(mModelComboBox)))
             return null;
 
-        mModel.setManufacturerId(mManufacturer.getSelectionModel().getSelectedItem().getPrimaryKey());
         mModel.setLicensePlate(mLicensePlate.getText());
-        mModel.setModel(mModelTextField.getText());
+        mModel.setModelId(mModelComboBox.getSelectionModel().getSelectedItem().getPrimaryKey());
 
         return mModel.save();
     }
@@ -38,18 +37,22 @@ public class VehicleDialogController extends ModelDialogController<Vehicle> {
         Vehicle vehicle = getModel();
 
         mLicensePlate.setText(vehicle.getLicensePlate());
-        mManufacturer.getSelectionModel().select(vehicle.getManufacturerId()); //TODO
+        NodeUtils.selectItemById(mModelComboBox, vehicle.getModelId());
 
         if (!canSave)
-            NodeUtils.disableAll(mLicensePlate, mManufacturer);
+            NodeUtils.disableAll(mLicensePlate, mModelComboBox);
     }
 
     @Override
     public void initialize() {
         super.initialize();
 
-        NodeUtils.setupRequiredTextFields(mModelTextField, mLicensePlate);
-        mManufacturer.setItems(Manufacturer.getAll());
+        NodeUtils.setupRequiredTextFields(mLicensePlate);
+
+        mModelComboBox.setSuppliers(item -> new VehicleModelDialog(MainController.getRoot(), item), VehicleModel::new);
+        mModelComboBox.setItems(VehicleModel.getAll());
+        mModelComboBox.getItems().add(0, new VehicleModel());
+
         //TODO license plate mask
     }
 }

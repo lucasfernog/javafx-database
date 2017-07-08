@@ -7,7 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Manufacturer extends Model<Manufacturer> {
-    private SimpleStringProperty mName = new SimpleStringProperty();
+    private SimpleStringProperty mName = new SimpleStringProperty("");
 
     public static ObservableList<Manufacturer> getAll() {
         ObservableList<Manufacturer> list = FXCollections.observableArrayList();

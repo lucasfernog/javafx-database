@@ -11,21 +11,22 @@
 
 <?import app.views.AddEditComboBox?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="app.controllers.model.dialog.VehicleDialogController"
+           fx:controller="app.controllers.model.dialog.VehicleModelDialogController"
            xmlns="http://javafx.com/javafx/2.2">
     <JFXDialogLayout>
 
         <!-- Título -->
         <heading>
-            <Label>Veículo</Label>
+            <Label>Modelo</Label>
         </heading>
 
         <!-- Conteúdo -->
         <body>
             <VBox styleClass="column">
                 <HBox styleClass="row" VBox.vgrow="ALWAYS">
-                    <AddEditComboBox fx:id="mModelComboBox" promptText="Modelo" labelFloat="true" HBox.hgrow="ALWAYS"/>
-                    <JFXTextField fx:id="mLicensePlate" promptText="Placa" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <AddEditComboBox fx:id="mManufacturer" promptText="Fabricante" labelFloat="true"
+                                     HBox.hgrow="ALWAYS"/>
+                    <JFXTextField fx:id="mName" promptText="Nome" labelFloat="true" HBox.hgrow="ALWAYS"/>
                 </HBox>
             </VBox>
 

@@ -78,7 +78,8 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
         Callback<Integer> callbackInternal = new Callback<>();
         callbackInternal.onSuccess((id) -> {
-            setPrimaryKey(id);
+            if (id != null)
+                setPrimaryKey(id);
             saveCallback.onSuccess();
         }).onError(saveCallback::onError);
 

@@ -6,8 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Vehicle extends Model<Vehicle> {
     private SimpleStringProperty mLicensePlate = new SimpleStringProperty();
-    private SimpleIntegerProperty mManufacturerId = new SimpleIntegerProperty();
-    private SimpleStringProperty mModel = new SimpleStringProperty();
+    private SimpleIntegerProperty mModelId = new SimpleIntegerProperty();
+    private VehicleModel mModel;
 
     @Override
     public String getTableName() {
@@ -20,8 +20,7 @@ public class Vehicle extends Model<Vehicle> {
 
         vehicle.setPrimaryKey(rowMap.getAsInteger("codigo"));
         vehicle.setLicensePlate(rowMap.getAsString("placa"));
-        vehicle.setManufacturerId(rowMap.getAsInteger("fabricante"));
-        vehicle.setModel(rowMap.getAsString("modelo"));
+        vehicle.setModelId(rowMap.getAsInteger("modelo"));
 
         return vehicle;
     }
@@ -31,8 +30,7 @@ public class Vehicle extends Model<Vehicle> {
         RowMap row = new RowMap();
 
         row.put("placa", getLicensePlate());
-        row.put("fabricante", getManufacturerId());
-        row.put("modelo", getModel());
+        row.put("modelo", getModelId());
 
         return row;
     }
@@ -49,27 +47,19 @@ public class Vehicle extends Model<Vehicle> {
         return mLicensePlate;
     }
 
-    public int getManufacturerId() {
-        return manufacturerIdProperty().get();
-    }
-
-    public void setManufacturerId(int manufacturerId) {
-        manufacturerIdProperty().set(manufacturerId);
-    }
-
-    public SimpleIntegerProperty manufacturerIdProperty() {
-        return mManufacturerId;
-    }
-
-    public String getModel() {
+    public int getModelId() {
         return modelProperty().get();
     }
 
-    public void setModel(String model) {
-        modelProperty().set(model);
+    public void setModelId(int modelId) {
+        modelProperty().set(modelId);
     }
 
-    public SimpleStringProperty modelProperty() {
+    public VehicleModel getModel() {
         return mModel;
+    }
+
+    public SimpleIntegerProperty modelProperty() {
+        return mModelId;
     }
 }
