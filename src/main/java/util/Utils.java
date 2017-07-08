@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 
 public class Utils {
 
+    public static String formatDate(String date) {
+        String[] pieces = date.split("-");
+        return pieces[2] + "/" + pieces[1] + "/" + pieces[0];
+    }
+
     public static <T extends Model> T find(ObservableList<T> list, int key) {
         for (T item : list)
             if (item.getPrimaryKey() == key)

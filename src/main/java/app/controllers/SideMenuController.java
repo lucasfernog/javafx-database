@@ -1,12 +1,12 @@
 package app.controllers;
 
+import app.controllers.model.query.DriverController;
 import app.controllers.model.query.VehicleController;
 import com.jfoenix.controls.JFXListView;
 import io.datafx.controller.ViewController;
 import io.datafx.controller.flow.Flow;
 import io.datafx.controller.flow.FlowException;
 import io.datafx.controller.flow.FlowHandler;
-import io.datafx.controller.flow.action.ActionTrigger;
 import io.datafx.controller.flow.context.FXMLViewFlowContext;
 import io.datafx.controller.flow.context.ViewFlowContext;
 import io.datafx.controller.util.VetoException;
@@ -23,8 +23,10 @@ public class SideMenuController {
     private ViewFlowContext mContext;
 
     @FXML
-    @ActionTrigger("buttons")
     private Label mVehicleItem;
+
+    @FXML
+    private Label mDriverItem;
 
     @FXML
     private JFXListView<Label> mSideList;
@@ -50,6 +52,7 @@ public class SideMenuController {
 
         //Menu handler
         bindNodeToController(mVehicleItem, VehicleController.class, contentFlow, contentFlowHandler);
+        bindNodeToController(mDriverItem, DriverController.class, contentFlow, contentFlowHandler);
     }
 
     private void bindNodeToController(Node node, Class<?> controllerClass, Flow flow, FlowHandler flowHandler) {

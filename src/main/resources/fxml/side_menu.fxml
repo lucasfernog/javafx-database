@@ -10,5 +10,6 @@
     </styleClass>
     <JFXListView fx:id="mSideList">
         <Label fx:id="mVehicleItem">Veículos</Label>
+        <Label fx:id="mDriverItem">Motoristas</Label>
     </JFXListView>
 </StackPane>

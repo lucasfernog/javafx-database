@@ -1,6 +1,7 @@
 package util;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -128,15 +129,22 @@ public class NodeUtils {
         return flag;
     }
 
+    public static boolean validateRequiredDatePickers(JFXDatePicker... datePickers) {
+        for (JFXDatePicker datePicker : datePickers)
+            if (datePicker.getValue() == null) {
+                datePicker.requestFocus();
+                return false;
+            }
+        return true;
+    }
+
     public static boolean validateRequiredComboBoxes(JFXComboBox... comboBoxes) {
-        boolean flag = true;
         for (JFXComboBox comboBox : comboBoxes)
             if (comboBox.getSelectionModel().getSelectedIndex() <= 0) {
-                if (flag)
-                    comboBox.requestFocus();
-                flag = false;
+                comboBox.requestFocus();
+                return false;
             }
-        return flag;
+        return true;
     }
 
     public static void tintDark(ImageView imageView) {
