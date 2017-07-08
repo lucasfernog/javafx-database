@@ -49,7 +49,7 @@ public class VehicleDialogController extends ModelDialogController<Vehicle> {
 
         NodeUtils.setupRequiredTextFields(mLicensePlate);
 
-        mModelComboBox.setSuppliers(item -> new VehicleModelDialog(MainController.getRoot(), item), VehicleModel::new);
+        mModelComboBox.setDialogSupplier(item -> new VehicleModelDialog(MainController.getRoot(), item));
         mModelComboBox.setItems(VehicleModel.getAll());
         mModelComboBox.getItems().add(0, new VehicleModel());
 

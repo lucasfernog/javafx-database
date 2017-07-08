@@ -69,15 +69,15 @@ public class ScheduleDialogController extends ModelDialogController<Schedule> {
         mScheduleType.setItems(ScheduleType.getAll());
         mScheduleType.getItems().add(0, new ScheduleType());
 
-        mVehicle.setSuppliers(item -> new VehicleDialog(MainController.getRoot(), item), Vehicle::new);
+        mVehicle.setDialogSupplier(item -> new VehicleDialog(MainController.getRoot(), item));
         mVehicle.setItems(Vehicle.getAll());
         mVehicle.getItems().add(0, new Vehicle());
 
-        mRoute.setSuppliers(item -> new RouteDialog(MainController.getRoot(), item), Route::new);
+        mRoute.setDialogSupplier(item -> new RouteDialog(MainController.getRoot(), item));
         mRoute.setItems(Route.getAll());
         mRoute.getItems().add(0, new Route());
 
-        mDriver.setSuppliers(item -> new DriverDialog(MainController.getRoot(), item), Driver::new);
+        mDriver.setDialogSupplier(item -> new DriverDialog(MainController.getRoot(), item));
         mDriver.setItems(Driver.getAll());
         mDriver.getItems().add(0, new Driver());
     }

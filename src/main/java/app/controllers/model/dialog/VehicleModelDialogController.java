@@ -47,7 +47,7 @@ public class VehicleModelDialogController extends ModelDialogController<VehicleM
     public void initialize() {
         super.initialize();
 
-        mManufacturer.setSuppliers(item -> new ManufacturerDialog(MainController.getRoot(), item), Manufacturer::new);
+        mManufacturer.setDialogSupplier(item -> new ManufacturerDialog(MainController.getRoot(), item));
         mManufacturer.setItems(Manufacturer.getAll());
         mManufacturer.getItems().add(0, new Manufacturer());
 

@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import util.NodeUtils;
 
 import java.io.IOException;
-import java.util.function.Supplier;
 
 public class AddEditComboBoxCell<T extends Model, C extends ModelDialogController<T>> extends JFXListCell<T> {
 
@@ -24,12 +23,10 @@ public class AddEditComboBoxCell<T extends Model, C extends ModelDialogControlle
 
     private JFXComboBox<T> mComboBox;
     private DialogSupplier<T, C> mDialogSupplier;
-    private Supplier<T> mModelSupplier;
 
-    public AddEditComboBoxCell(JFXComboBox<T> comboBox, DialogSupplier<T, C> dialogSupplier, Supplier<T> modelSupplier) {
+    public AddEditComboBoxCell(JFXComboBox<T> comboBox, DialogSupplier<T, C> dialogSupplier) {
         mComboBox = comboBox;
         mDialogSupplier = dialogSupplier;
-        mModelSupplier = modelSupplier;
     }
 
     @Override
@@ -49,12 +46,10 @@ public class AddEditComboBoxCell<T extends Model, C extends ModelDialogControlle
         setOnMouseClicked(e -> {
             if (e.getTarget() == imageView)
                 try {
-                    ModelDialog<T, C> dialog = mDialogSupplier.newDialog(item);
+                    ModelDialog<T, C> dialog = mDialogSupplier.newDialog(addCell ? null : item);
                     dialog.setOnSaveListener((model) -> {
                         if (addCell) {
                             mComboBox.getItems().add(model);
-                            mComboBox.getItems().set(0, mModelSupplier.get());
-                            //TODO not working
                             Platform.runLater(() -> mComboBox.getSelectionModel().select(model));
                         } else {
                             mComboBox.getItems().set(mComboBox.getItems().indexOf(item), model);

@@ -60,15 +60,14 @@ public abstract class ModelDialogController<T extends Model> {
     public void setModel(T model, boolean canSave) {
         mModel = model;
         mCanSave = canSave;
-        if (model != null) {
+        if (model != null)
             loadModel(canSave);
 
-            /**
-             * No modo de visualização, remove o botão de salvar
-             */
-            if (!canSave)
-                ((FlowPane) mSaveButton.getParent()).getChildren().remove(mSaveButton);
-        }
+        /**
+         * No modo de visualização, remove o botão de salvar
+         */
+        if (!canSave)
+            ((FlowPane) mSaveButton.getParent()).getChildren().remove(mSaveButton);
     }
 
     T getModel() {

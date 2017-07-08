@@ -50,7 +50,7 @@ public class RouteDialogController extends ModelDialogController<Route> {
 
         NodeUtils.setupRequiredTextFields(mDescription);
 
-        mReverseRoute.setSuppliers(item -> new RouteDialog(MainController.getRoot(), item), Route::new);
+        mReverseRoute.setDialogSupplier(item -> new RouteDialog(MainController.getRoot(), item));
         mReverseRoute.setItems(Route.getAll());
         mReverseRoute.getItems().add(0, new Route());
     }
