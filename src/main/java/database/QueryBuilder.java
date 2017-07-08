@@ -220,10 +220,14 @@ public class QueryBuilder<T extends Model> {
                     .append(join.toString())
                     .append(" ");
 
-        for (Where where : mWheres)
-            query.append(" ")
-                    .append(where.toString())
-                    .append(" ");
+        if (mWheres.size() > 0) {
+            query.append(" WHERE ");
+            int i = 0;
+            for (Where where : mWheres)
+                query.append(" ")
+                        .append(where.toString(i++ == 1))
+                        .append(" ");
+        }
 
         query.append(Utils.join(",", mGroupBy))
                 .append(" ")
@@ -262,9 +266,13 @@ public class QueryBuilder<T extends Model> {
 
         @Override
         public String toString() {
+            return toString(true);
+        }
+
+        public String toString(boolean withLogicalOperator) {
             StringBuilder where = new StringBuilder();
 
-            if (mLogicalOperator != null)
+            if (withLogicalOperator && mLogicalOperator != null)
                 where.append(mLogicalOperator).append(" ");
             where.append(mColumn)
                     .append(" ")
