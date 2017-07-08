@@ -1,11 +1,14 @@
 package database.model;
 
+import database.Database;
 import database.RowMap;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-public class Vehicle extends Model<Vehicle> {
-    private SimpleStringProperty mLicensePlate = new SimpleStringProperty();
+public class Vehicle extends NonCompositePrimaryKeyModel<Vehicle> {
+    private SimpleStringProperty mLicensePlate = new SimpleStringProperty("");
     private SimpleIntegerProperty mModelId = new SimpleIntegerProperty();
     private VehicleModel mModel;
 
@@ -35,6 +38,20 @@ public class Vehicle extends Model<Vehicle> {
         return row;
     }
 
+    public static ObservableList<Vehicle> getAll() {
+        ObservableList<Vehicle> list = FXCollections.observableArrayList();
+
+        Database.from(Vehicle.class)
+                .select("codigo", "placa", "modelo")
+                .execute(new Database.Callback<Vehicle>() {
+                    public void onSuccess(Vehicle vehicle) {
+                        list.add(vehicle);
+                    }
+                });
+
+        return list;
+    }
+
     public String getLicensePlate() {
         return licensePlateProperty().get();
     }
@@ -61,5 +78,10 @@ public class Vehicle extends Model<Vehicle> {
 
     public SimpleIntegerProperty modelProperty() {
         return mModelId;
+    }
+
+    @Override
+    public String toString() {
+        return getLicensePlate();
     }
 }

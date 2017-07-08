@@ -9,6 +9,7 @@
         <String fx:value="side-menu"/>
     </styleClass>
     <JFXListView fx:id="mSideList">
+        <Label fx:id="mScheduleItem">Horários</Label>
         <Label fx:id="mVehicleItem">Veículos</Label>
         <Label fx:id="mDriverItem">Motoristas</Label>
     </JFXListView>

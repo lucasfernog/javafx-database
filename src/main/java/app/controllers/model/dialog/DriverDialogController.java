@@ -30,7 +30,7 @@ public class DriverDialogController extends ModelDialogController<Driver> {
             mModel = new Driver();
 
 
-        if (!(NodeUtils.validateRequiredTextFields(mCPF, mCTPS, mName, mSalary) && NodeUtils.validateRequiredDatePickers(mBirthDate, mHiringDate)))
+        if (!(NodeUtils.validateRequiredTextFields(mCPF, mCTPS, mName, mSalary) && NodeUtils.validateRequired(mBirthDate, mHiringDate)))
             return null;
 
         mModel.setCPF(Long.parseLong(mCPF.getText().replaceAll("[/.-]", "")));

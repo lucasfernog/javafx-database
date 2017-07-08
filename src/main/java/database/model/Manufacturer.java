@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Manufacturer extends Model<Manufacturer> {
+public class Manufacturer extends NonCompositePrimaryKeyModel<Manufacturer> {
     private SimpleStringProperty mName = new SimpleStringProperty("");
 
     public static ObservableList<Manufacturer> getAll() {

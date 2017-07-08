@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.controllers.model.query.DriverController;
+import app.controllers.model.query.ScheduleController;
 import app.controllers.model.query.VehicleController;
 import com.jfoenix.controls.JFXListView;
 import io.datafx.controller.ViewController;
@@ -23,13 +24,16 @@ public class SideMenuController {
     private ViewFlowContext mContext;
 
     @FXML
-    private Label mVehicleItem;
+    private Node mVehicleItem;
 
     @FXML
-    private Label mDriverItem;
+    private Node mDriverItem;
 
     @FXML
-    private JFXListView<Label> mSideList;
+    private Node mScheduleItem;
+
+    @FXML
+    private JFXListView<Node> mSideList;
 
     /**
      * init fxml when loaded.
@@ -51,6 +55,7 @@ public class SideMenuController {
         Flow contentFlow = (Flow) mContext.getRegisteredObject("ContentFlow");
 
         //Menu handler
+        bindNodeToController(mScheduleItem, ScheduleController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mVehicleItem, VehicleController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mDriverItem, DriverController.class, contentFlow, contentFlowHandler);
     }

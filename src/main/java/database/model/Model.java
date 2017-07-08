@@ -10,8 +10,6 @@ import database.Database.Callback.OnErrorListener;
 
 public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
-    private SimpleIntegerProperty mPrimaryKey;
-
     /**
      * Mapeia as colunas e seus respectivos valores da tupla do objeto
      * OBS: A primery key é mapeada automaticamente
@@ -26,26 +24,12 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
      */
     public abstract T from(RowMap rowMap);
 
+    abstract String getWhereClauseForPrimaryKey();
+
+    abstract boolean shouldUpdate();
+
     public String getTableName() {
         return getClass().getSimpleName().replaceAll("([^_A-Z])([A-Z])", "$1_$2").toLowerCase();
-    }
-
-    public String getPrimaryKeyName() {
-        return "codigo";
-    }
-
-    public SimpleIntegerProperty primaryKeyProperty() {
-        if (mPrimaryKey == null)
-            mPrimaryKey = new SimpleIntegerProperty(this, getPrimaryKeyName());
-        return mPrimaryKey;
-    }
-
-    protected void setPrimaryKey(int primaryKey) {
-        primaryKeyProperty().set(primaryKey);
-    }
-
-    public int getPrimaryKey() {
-        return primaryKeyProperty().get();
     }
 
     /**
@@ -68,6 +52,10 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
         return builder.select(columns).from(getTableName());
     }
 
+    void onSave(Integer generatedKey) {
+
+    }
+
     /**
      * Salva a model assincronamente
      *
@@ -78,18 +66,16 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
         Callback<Integer> callbackInternal = new Callback<>();
         callbackInternal.onSuccess((id) -> {
-            if (id != null)
-                setPrimaryKey(id);
+            onSave(id);
             saveCallback.onSuccess();
         }).onError(saveCallback::onError);
 
         RowMap values = getValues();
 
-        int primaryKey = getPrimaryKey();
-        if (primaryKey > 0)
+        if (shouldUpdate())
             Database.getInstance().update(getTableName(),
                     values,
-                    new QueryBuilder.Where(primaryKeyProperty().getName(), "=", primaryKey),
+                    getWhereClauseForPrimaryKey(),
                     callbackInternal);
         else
             Database.getInstance().insert(getTableName(), values, callbackInternal);

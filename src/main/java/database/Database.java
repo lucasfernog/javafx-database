@@ -58,7 +58,7 @@ public class Database {
      * @param where            cláusula where (opcional) do update
      * @return a cláusula SQL do insert/update
      */
-    private String getSaveQuery(String tableName, Map<String, Object> columnValuePairs, QueryBuilder.Where where) {
+    private String getSaveQuery(String tableName, Map<String, Object> columnValuePairs, String where) {
         StringBuilder saveSQL = new StringBuilder();
 
         boolean inserting = where == null;
@@ -79,7 +79,12 @@ public class Database {
                 }
                 columns.append(pair.getKey());
                 Object value = pair.getValue();
-                values.append(value instanceof String ? ("'" + value + "'") : value);
+                if (value instanceof CharSequence)
+                    values.append("'")
+                            .append(value)
+                            .append("'");
+                else
+                    values.append(value);
             }
 
             saveSQL.append(" (")
@@ -89,17 +94,25 @@ public class Database {
                     .append(")");
         } else {
             saveSQL.append(" SET ");
-            int i = 0;
+            int i = 0, size = columnValuePairs.size();
             for (Map.Entry<String, Object> pair : columnValuePairs.entrySet()) {
                 saveSQL.append(pair.getKey())
-                        .append("=")
-                        .append(pair.getValue() instanceof String ? ("'" + pair.getValue() + "'") : pair.getValue());
-                if (i != columnValuePairs.size() - 1)
+                        .append("=");
+
+                Object value = pair.getValue();
+                if (value instanceof CharSequence)
+                    saveSQL.append("'")
+                            .append(value)
+                            .append("'");
+                else
+                    saveSQL.append(value);
+
+                if (i != size - 1)
                     saveSQL.append(",");
                 i++;
             }
 
-            saveSQL.append(" WHERE ").append(where.toString());
+            saveSQL.append(" WHERE ").append(where);
         }
 
         return saveSQL.toString();
@@ -108,7 +121,7 @@ public class Database {
     /**
      * Atalho para o método save; atualiza o registro no banco de dados
      */
-    public void update(String tableName, Map<String, Object> columnValuePairs, QueryBuilder.Where where, Callback<Integer> callback) {
+    public void update(String tableName, Map<String, Object> columnValuePairs, String where, Callback<Integer> callback) {
         save(tableName, columnValuePairs, where, callback);
     }
 
@@ -127,7 +140,7 @@ public class Database {
      * @param where            (Opcional) where a ser utilizado para um update
      * @param callback         Callback para o retorno da execução assíncrona, sendo o ID do registro em caso de sucesso
      */
-    private void save(String tableName, Map<String, Object> columnValuePairs, QueryBuilder.Where where, Callback<Integer> callback) {
+    private void save(String tableName, Map<String, Object> columnValuePairs, String where, Callback<Integer> callback) {
         mDatabaseExecutor.execute(() -> {
             ResultSet resultSet = null;
 
@@ -136,9 +149,13 @@ public class Database {
 
                 if (where == null) { //inserting
                     resultSet = statement.getGeneratedKeys();
-                    if (resultSet.next())
-                        callback.onSuccess(resultSet.getInt(1));
-                    else
+                    if (resultSet.next()) {
+                        //se a primary key for composta, pode ser incorreto usar getInt(1); no caso, apenas ignora o retorno
+                        if (resultSet.getMetaData().getColumnCount() == 1)
+                            callback.onSuccess(resultSet.getInt(1));
+                        else
+                            callback.onSuccess((Integer) null);
+                    } else
                         callback.onError(new SQLException("getGeneratedKeys failed"));
                 } else
                     callback.onSuccess((Integer) null);

@@ -6,16 +6,14 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.validation.RequiredFieldValidator;
 import database.model.Model;
+import database.model.NonCompositePrimaryKeyModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.SingleSelectionModel;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.control.TreeTableColumn;
+import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
@@ -24,7 +22,7 @@ import java.util.function.Function;
 
 public class NodeUtils {
 
-    public static <T extends Model> void selectItemById(ComboBox<T> comboBox, int id) {
+    public static <T extends NonCompositePrimaryKeyModel> void selectItemById(ComboBox<T> comboBox, int id) {
         Platform.runLater(() -> {
             ObservableList<T> list = comboBox.getItems();
             T item = Utils.find(list, id);
@@ -48,12 +46,12 @@ public class NodeUtils {
         });
     }
 
-    private static <T extends Model> void updateChildComboBoxItems(ComboBox<T> comboBox, ObservableList<T> items, Function<T, SimpleIntegerProperty> mapper, int id) {
+    private static <T extends NonCompositePrimaryKeyModel> void updateChildComboBoxItems(ComboBox<T> comboBox, ObservableList<T> items, Function<T, SimpleIntegerProperty> mapper, int id) {
         comboBox.setItems(Utils.filter(items, model -> mapper.apply(model).getValue() == id || model.getPrimaryKey() <= 0));
         comboBox.setDisable(id <= 0);
     }
 
-    public static <T extends Model, M extends Model> void bindChildComboBox(ComboBox<T> parent, ComboBox<M> child, ObservableList<M> items, Function<M, SimpleIntegerProperty> mapper) {
+    public static <T extends NonCompositePrimaryKeyModel, M extends NonCompositePrimaryKeyModel> void bindChildComboBox(ComboBox<T> parent, ComboBox<M> child, ObservableList<M> items, Function<M, SimpleIntegerProperty> mapper) {
         child.setItems(items);
 
         SingleSelectionModel<T> selectionModel = parent.getSelectionModel();
@@ -129,19 +127,10 @@ public class NodeUtils {
         return flag;
     }
 
-    public static boolean validateRequiredDatePickers(JFXDatePicker... datePickers) {
-        for (JFXDatePicker datePicker : datePickers)
-            if (datePicker.getValue() == null) {
-                datePicker.requestFocus();
-                return false;
-            }
-        return true;
-    }
-
-    public static boolean validateRequiredComboBoxes(JFXComboBox... comboBoxes) {
-        for (JFXComboBox comboBox : comboBoxes)
-            if (comboBox.getSelectionModel().getSelectedIndex() <= 0) {
-                comboBox.requestFocus();
+    public static boolean validateRequired(ComboBoxBase... nodes) {
+        for (ComboBoxBase node : nodes)
+            if (node.getValue() == null) {
+                node.requestFocus();
                 return false;
             }
         return true;

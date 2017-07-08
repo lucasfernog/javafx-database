@@ -7,7 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class VehicleModel extends Model<VehicleModel> {
+public class VehicleModel extends NonCompositePrimaryKeyModel<VehicleModel> {
     private SimpleStringProperty mName = new SimpleStringProperty("");
     private SimpleIntegerProperty mManufacturerId = new SimpleIntegerProperty();
 

@@ -1,5 +1,6 @@
 package app.controllers;
 
+import app.controllers.model.query.ScheduleController;
 import app.controllers.model.query.VehicleController;
 import app.views.ExtendedAnimatedFlowContainer;
 import com.jfoenix.controls.*;
@@ -65,7 +66,7 @@ public class MainController {
 
         mContext = new ViewFlowContext();
         //  controller padrão (tela inicial)
-        Flow innerFlow = new Flow(VehicleController.class);
+        Flow innerFlow = new Flow(ScheduleController.class);
         final FlowHandler flowHandler = innerFlow.createHandler(mContext);
         mContext.register("ContentFlowHandler", flowHandler);
         mContext.register("ContentFlow", innerFlow);

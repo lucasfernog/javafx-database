@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Driver extends Model<Driver> {
+public class Driver extends NonCompositePrimaryKeyModel<Driver> {
     private SimpleLongProperty mCPF = new SimpleLongProperty();
     private SimpleLongProperty mCTPS = new SimpleLongProperty();
     private SimpleStringProperty mName = new SimpleStringProperty("");
@@ -20,7 +20,7 @@ public class Driver extends Model<Driver> {
         ObservableList<Driver> list = FXCollections.observableArrayList();
 
         Database.from(Driver.class)
-                .select("codigo", "nome")
+                .select("*")
                 .execute(new Database.Callback<Driver>() {
                     public void onSuccess(Driver driver) {
                         list.add(driver);

@@ -8,7 +8,6 @@ import database.model.Manufacturer;
 import database.model.Model;
 import database.model.VehicleModel;
 import javafx.fxml.FXML;
-import javafx.scene.layout.StackPane;
 import util.NodeUtils;
 
 public class VehicleModelDialogController extends ModelDialogController<VehicleModel> {
@@ -24,7 +23,7 @@ public class VehicleModelDialogController extends ModelDialogController<VehicleM
             mModel = new VehicleModel();
 
 
-        if (!(NodeUtils.validateRequiredTextFields(mName) && NodeUtils.validateRequiredComboBoxes(mManufacturer)))
+        if (!(NodeUtils.validateRequiredTextFields(mName) && NodeUtils.validateRequired(mManufacturer)))
             return null;
 
         mModel.setName(mName.getText());

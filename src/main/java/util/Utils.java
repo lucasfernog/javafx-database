@@ -1,6 +1,7 @@
 package util;
 
 import database.model.Model;
+import database.model.NonCompositePrimaryKeyModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,7 +17,7 @@ public class Utils {
         return pieces[2] + "/" + pieces[1] + "/" + pieces[0];
     }
 
-    public static <T extends Model> T find(ObservableList<T> list, int key) {
+    public static <T extends NonCompositePrimaryKeyModel> T find(ObservableList<T> list, int key) {
         for (T item : list)
             if (item.getPrimaryKey() == key)
                 return item;
@@ -56,7 +57,7 @@ public class Utils {
     }
 
     public static <T> String joinToSql(CharSequence delimiter, List<T> tokens) {
-        if (tokens.get(0) instanceof String) {
+        if (tokens.get(0) instanceof CharSequence) {
             List<String> strTokens = new ArrayList<>();
             for (Object token : tokens) {
                 strTokens.add("'" + token + "'");
