@@ -23,6 +23,11 @@ public abstract class ModelQueryController<T extends Model<T>> {
     @FXML
     private JFXButton mInsertButton;
 
+    @FXML
+    private JFXButton mSearchButton;
+
+    ObservableList<T> mList;
+
     abstract ModelDialog getModelDialog(T model, boolean canSave) throws IOException;
 
     abstract ObservableList<T> getList();
@@ -39,12 +44,14 @@ public abstract class ModelQueryController<T extends Model<T>> {
         showModelDialog(null, true);
     }
 
+    private void setTableData() {
+        mList = getList();
+        mTable.setRoot(new RecursiveTreeItem<>(mList, RecursiveTreeObject::getChildren));
+    }
+
     protected void init() {
         mTable.setEditable(false);
-
-        ObservableList<T> list = getList();
-
-        mTable.setRoot(new RecursiveTreeItem<>(list, RecursiveTreeObject::getChildren));
+        setTableData();
         mTable.setShowRoot(false);
 
         //Visualizar
@@ -56,8 +63,10 @@ public abstract class ModelQueryController<T extends Model<T>> {
         //Incluir
         mInsertButton.addEventHandler(ActionEvent.ACTION, event -> newModelDialog());
 
+        mSearchButton.addEventHandler(ActionEvent.ACTION, event -> setTableData());
+
         //Alterar
-        mEditColumn.setOnButtonClickListener(index -> showModelDialog(list.get(index), true));
+        mEditColumn.setOnButtonClickListener(index -> showModelDialog(mList.get(index), true));
     }
 
     protected JFXTreeTableView getTable() {
