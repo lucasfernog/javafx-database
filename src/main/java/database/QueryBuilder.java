@@ -211,7 +211,7 @@ public class QueryBuilder<T extends Model> {
         StringBuilder query = new StringBuilder();
 
         query.append("SELECT ")
-                .append(mColumns == null ? "*" : Utils.join(",", mColumns))
+                .append(mColumns == null || mColumns.length == 0 ? "*" : Utils.join(",", mColumns))
                 .append(" FROM ")
                 .append(Utils.join(",", mFrom));
 
