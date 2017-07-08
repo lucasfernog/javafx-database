@@ -131,14 +131,17 @@ public class Database {
         mDatabaseExecutor.execute(() -> {
             ResultSet resultSet = null;
 
-            try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-                statement.execute(getSaveQuery(tableName, columnValuePairs, where));
+            try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(getSaveQuery(tableName, columnValuePairs, where), Statement.RETURN_GENERATED_KEYS)) {
+                statement.executeUpdate();
 
-                resultSet = statement.getGeneratedKeys();
-                if (resultSet.next())
-                    callback.onSuccess(resultSet.getInt(1));
-                else
-                    callback.onError();
+                if (where == null) { //inserting
+                    resultSet = statement.getGeneratedKeys();
+                    if (resultSet.next())
+                        callback.onSuccess(resultSet.getInt(1));
+                    else
+                        callback.onError();
+                } else
+                    callback.onSuccess((Integer) null);
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
                 callback.onError();
