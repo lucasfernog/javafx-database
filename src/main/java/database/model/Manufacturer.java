@@ -48,14 +48,14 @@ public class Manufacturer extends Model<Manufacturer> {
     }
 
     public String getName() {
-        return mameProperty().get();
+        return nameProperty().get();
     }
 
     public void setName(String name) {
-        mameProperty().set(name);
+        nameProperty().set(name);
     }
 
-    public SimpleStringProperty mameProperty() {
+    public SimpleStringProperty nameProperty() {
         return mName;
     }
 

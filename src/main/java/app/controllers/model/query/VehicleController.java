@@ -15,7 +15,7 @@ import util.NodeUtils;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-@ViewController(value = "/fxml/vehicle.fxml")
+@ViewController(value = "/fxml/vehicles.fxml")
 public class VehicleController extends ModelQueryController<Vehicle> {
 
     @FXML
