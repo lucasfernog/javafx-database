@@ -10,6 +10,7 @@ import database.model.NonCompositePrimaryKeyModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.beans.value.WritableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -73,6 +74,13 @@ public class NodeUtils {
     public static void disableAll(Node... nodes) {
         for (Node node : nodes)
             node.setDisable(true);
+    }
+
+    public static <M, T> void setupEditableColumn(JFXTreeTableColumn<M, T> column, Function<M, WritableValue<T>> mapper) {
+        column.setOnEditCommit((TreeTableColumn.CellEditEvent<M, T> t) -> {
+            M item = t.getTreeTableView().getTreeItem(t.getTreeTablePosition().getRow()).getValue();
+            mapper.apply(item).setValue(t.getNewValue());
+        });
     }
 
     public static <M, T> void setupCellValueFactory(JFXTreeTableColumn<M, T> column, Function<M, ObservableValue<T>> mapper) {

@@ -76,9 +76,9 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
             Database.getInstance().update(getTableName(),
                     values,
                     getWhereClauseForPrimaryKey(),
-                    callbackInternal);
+                    callbackInternal, this instanceof CompositePrimaryKeyModel);
         else
-            Database.getInstance().insert(getTableName(), values, callbackInternal);
+            Database.getInstance().insert(getTableName(), values, callbackInternal, this instanceof CompositePrimaryKeyModel);
 
         return saveCallback;
     }

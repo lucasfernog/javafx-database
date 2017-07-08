@@ -10,6 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import app.views.AddEditComboBox?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import app.views.EditableColumn?>
+<?import app.views.ButtonColumn?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="app.controllers.model.dialog.RouteDialogController"
            xmlns="http://javafx.com/javafx/2.2">
@@ -28,6 +31,17 @@
                     <AddEditComboBox fx:id="mReverseRoute" promptText="Linha contrária" labelFloat="true"
                                      HBox.hgrow="ALWAYS"/>
                 </HBox>
+
+                <JFXButton fx:id="mAddItineraryButton" styleClass="btn-success" text="Adicionar Itinerário"/>
+
+                <JFXTreeTableView fx:id="mTable" editable="true">
+                    <columns>
+                        <EditableColumn fx:id="mStreetColumn" minWidth="200" text="Rua"/>
+                        <EditableColumn fx:id="mStartBlockColumn" minWidth="133" text="Quadra inicial" type="int"/>
+                        <EditableColumn fx:id="mEndBlockColumn" minWidth="133" text="Quadra final" type="int"/>
+                        <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
+                    </columns>
+                </JFXTreeTableView>
             </VBox>
 
         </body>

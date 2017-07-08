@@ -121,15 +121,15 @@ public class Database {
     /**
      * Atalho para o método save; atualiza o registro no banco de dados
      */
-    public void update(String tableName, Map<String, Object> columnValuePairs, String where, Callback<Integer> callback) {
-        save(tableName, columnValuePairs, where, callback);
+    public void update(String tableName, Map<String, Object> columnValuePairs, String where, Callback<Integer> callback, boolean compositePrimaryKey) {
+        save(tableName, columnValuePairs, where, callback, compositePrimaryKey);
     }
 
     /**
      * Atalho para o método save; insere o registro no banco de dados
      */
-    public void insert(String tableName, Map<String, Object> columnValuePairs, Callback<Integer> callback) {
-        save(tableName, columnValuePairs, null, callback);
+    public void insert(String tableName, Map<String, Object> columnValuePairs, Callback<Integer> callback, boolean compositePrimaryKey) {
+        save(tableName, columnValuePairs, null, callback, compositePrimaryKey);
     }
 
     /**
@@ -140,22 +140,18 @@ public class Database {
      * @param where            (Opcional) where a ser utilizado para um update
      * @param callback         Callback para o retorno da execução assíncrona, sendo o ID do registro em caso de sucesso
      */
-    private void save(String tableName, Map<String, Object> columnValuePairs, String where, Callback<Integer> callback) {
+    private void save(String tableName, Map<String, Object> columnValuePairs, String where, Callback<Integer> callback, boolean compositePrimaryKey) {
         mDatabaseExecutor.execute(() -> {
             ResultSet resultSet = null;
 
             try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(getSaveQuery(tableName, columnValuePairs, where), Statement.RETURN_GENERATED_KEYS)) {
                 statement.executeUpdate();
 
-                if (where == null) { //inserting
+                if (where == null && !compositePrimaryKey) { //inserting; composite pk
                     resultSet = statement.getGeneratedKeys();
-                    if (resultSet.next()) {
-                        //se a primary key for composta, pode ser incorreto usar getInt(1); no caso, apenas ignora o retorno
-                        if (resultSet.getMetaData().getColumnCount() == 1)
-                            callback.onSuccess(resultSet.getInt(1));
-                        else
-                            callback.onSuccess((Integer) null);
-                    } else
+                    if (resultSet.next())
+                        callback.onSuccess(resultSet.getInt(1));
+                    else
                         callback.onError(new SQLException("getGeneratedKeys failed"));
                 } else
                     callback.onSuccess((Integer) null);

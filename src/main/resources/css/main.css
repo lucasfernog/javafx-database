@@ -385,6 +385,10 @@
     -fx-graphic: url("/images/ic_edit.png");
 }
 
+.column-remove .button {
+    -fx-graphic: url("/images/ic_delete.png");
+}
+
 .fab {
     -jfx-button-type: FLAT;
     -fx-min-width: 48px;

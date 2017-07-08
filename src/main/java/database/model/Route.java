@@ -4,12 +4,15 @@ import database.Database;
 import database.RowMap;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Route extends NonCompositePrimaryKeyModel<Route> {
-    private SimpleStringProperty mName = new SimpleStringProperty("");
 
+    private ObservableList<Itinerary> mItineraries;
+    private ObservableList<Itinerary> mNewItineraries;
+    private SimpleStringProperty mName = new SimpleStringProperty("");
     private SimpleIntegerProperty mReverseRouteId = new SimpleIntegerProperty();
 
     public static ObservableList<Route> getAll() {
@@ -53,6 +56,19 @@ public class Route extends NonCompositePrimaryKeyModel<Route> {
         return row;
     }
 
+    @Override
+    void onSave(Integer result) {
+        super.onSave(result);
+
+        int id = getPrimaryKey();
+        int index = 1;
+        for (Itinerary itinerary : mNewItineraries) {
+            itinerary.setRouteId(id);
+            itinerary.setOrder(index++);
+        }
+        sync(mItineraries, mNewItineraries);
+    }
+
     public String getName() {
         return nameProperty().get();
     }
@@ -75,6 +91,14 @@ public class Route extends NonCompositePrimaryKeyModel<Route> {
 
     public SimpleIntegerProperty reverseRouteIdProperty() {
         return mReverseRouteId;
+    }
+
+    public ObservableList<Itinerary> getItineraries() {
+        return mItineraries = Itinerary.getAll(getPrimaryKey());
+    }
+
+    public void setItineraries(ObservableList<Itinerary> itineraries) {
+        mNewItineraries = itineraries;
     }
 
     @Override
