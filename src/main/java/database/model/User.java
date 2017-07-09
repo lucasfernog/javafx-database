@@ -1,6 +1,7 @@
 package database.model;
 
 import database.Database;
+import database.QueryBuilder;
 import database.RowMap;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -12,19 +13,24 @@ public class User extends NonCompositePrimaryKeyModel<User> {
 
     private SimpleLongProperty mCPF = new SimpleLongProperty();
     private SimpleStringProperty mName = new SimpleStringProperty("");
-
     private SimpleFloatProperty mBalance = new SimpleFloatProperty();
 
-    public static ObservableList<User> getAll() {
+    public static ObservableList<User> getNonUsers(Integer including) {
         ObservableList<User> list = FXCollections.observableArrayList();
 
-        Database.from(User.class)
+        QueryBuilder<User> query = Database.from(User.class)
                 .select("*")
-                .execute(new Database.Callback<User>() {
-                    public void onSuccess(User user) {
-                        list.add(user);
-                    }
-                });
+                .leftJoin("estudantes", "usuarios.codigo", "=", "estudantes.usuario")
+                .whereNull("usuario");
+
+        if (including != null)
+            query.orWhere("usuario", "=", including);
+
+        query.execute(new Database.Callback<User>() {
+            public void onSuccess(User user) {
+                list.add(user);
+            }
+        });
 
         return list;
     }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<?import app.views.AddEditComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="app.controllers.model.dialog.StudentDialogController"
+           xmlns="http://javafx.com/javafx/2.2">
+    <JFXDialogLayout>
+
+        <!-- Título -->
+        <heading>
+            <Label>Estudante</Label>
+        </heading>
+
+        <!-- Conteúdo -->
+        <body>
+            <VBox styleClass="column">
+                <HBox styleClass="row" VBox.vgrow="ALWAYS">
+                    <JFXDatePicker fx:id="mDueDate" promptText="Data de vencimento" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox styleClass="row" VBox.vgrow="ALWAYS">
+                    <AddEditComboBox fx:id="mUser" promptText="Usuário" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <JFXTextField fx:id="mBalance" promptText="Saldo" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+
+        </body>
+
+        <!-- Ações -->
+        <actions>
+            <JFXButton fx:id="mSaveButton" styleClass="btn-primary, btn-flat, btn-dialog">SALVAR
+            </JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</StackPane>

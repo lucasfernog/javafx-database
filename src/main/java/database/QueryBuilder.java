@@ -55,21 +55,20 @@ public class QueryBuilder<T extends Model> {
         return this;
     }
 
-    private QueryBuilder<T> innerJoin(String table, String leftOn, String comparator, String rightOn) {
+    public QueryBuilder<T> innerJoin(String table, String leftOn, String comparator, String rightOn) {
         return join("INNER JOIN", table, leftOn, comparator, rightOn);
     }
 
-    private QueryBuilder<T> letJoin(String table, String leftOn, String comparator, String rightOn) {
+    public QueryBuilder<T> leftJoin(String table, String leftOn, String comparator, String rightOn) {
         return join("LEFT JOIN", table, leftOn, comparator, rightOn);
     }
 
-    private QueryBuilder<T> rightJoin(String table, String leftOn, String comparator, String rightOn) {
+    public QueryBuilder<T> rightJoin(String table, String leftOn, String comparator, String rightOn) {
         return join("RIGHT JOIN", table, leftOn, comparator, rightOn);
     }
 
     private QueryBuilder<T> where(String logicalOperator, String column, String comparator, Object value) {
         if (value == null) {
-            value = "null";
             if (comparator.equals("="))
                 comparator = "is";
             else if (comparator.equals("<>"))
@@ -92,7 +91,7 @@ public class QueryBuilder<T extends Model> {
      * WHERE NULL
      */
     private QueryBuilder<T> whereNullInternal(String logicalOperator, String column, boolean isNull) {
-        return where(logicalOperator, column, isNull ? "is" : "not", "null");
+        return where(logicalOperator, column, isNull ? "is" : "not", null);
     }
 
     public QueryBuilder<T> whereNull(BuildNewQuery whereBuilder) {
@@ -307,10 +306,10 @@ public class QueryBuilder<T extends Model> {
 
         @Override
         public String toString() {
-            String join = mType +
+            String join = mType + " " +
                     mTable +
                     " ON " +
-                    mLeftOn +
+                    mLeftOn + " " +
                     mComparator +
                     " " +
                     mRightOn;

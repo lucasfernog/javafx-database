@@ -13,5 +13,6 @@
         <Label fx:id="mVehicleItem">Veículos</Label>
         <Label fx:id="mDriverItem">Motoristas</Label>
         <Label fx:id="mUserItem">Usuários</Label>
+        <Label fx:id="mStudentItem">Estudantes</Label>
     </JFXListView>
 </StackPane>
