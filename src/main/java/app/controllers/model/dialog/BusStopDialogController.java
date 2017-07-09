@@ -1,5 +1,6 @@
 package app.controllers.model.dialog;
 
+import app.views.textfields.CepTextField;
 import com.jfoenix.controls.JFXTextField;
 import database.model.BusStop;
 import database.model.Model;
@@ -9,7 +10,7 @@ import util.NodeUtils;
 public class BusStopDialogController extends ModelDialogController<BusStop> {
 
     @FXML
-    private JFXTextField mCEP;
+    private CepTextField mCEP;
 
     @FXML
     private JFXTextField mStreet;
@@ -26,7 +27,7 @@ public class BusStopDialogController extends ModelDialogController<BusStop> {
         if (!NodeUtils.validateRequiredTextFields(mCEP, mStreet, mNumber))
             return null;
 
-        mModel.setCEP(Integer.parseInt(mCEP.getText()));
+        mModel.setCEP(Integer.parseInt(mCEP.removeMask()));
         mModel.setStreet(mStreet.getText());
         mModel.setNumber(Integer.parseInt(mNumber.getText()));
 

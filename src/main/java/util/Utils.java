@@ -1,6 +1,5 @@
 package util;
 
-import database.model.Model;
 import database.model.NonCompositePrimaryKeyModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +10,42 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Utils {
+
+    public static final String LICENSE_PLATE_MASK = "###-####";
+    public static final String CPF_MASK = "###.###.###-##";
+    public static final String CEP_MASK = "#####-###";
+
+    public static String applyMask(String mask, String str) {
+        if (str == null || str.length() == 0)
+            return str;
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0, n = mask.length(), j = 0; i < n; i++) {
+            if (mask.charAt(i) == '#')
+                result.append(str.charAt(j++));
+            else
+                result.append(mask.charAt(i));
+        }
+        return result.toString();
+    }
+
+    public static int countOccurrences(String haystack, char needle) {
+        int count = 0;
+        for (int i = 0; i < haystack.length(); i++) {
+            if (haystack.charAt(i) == needle) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static String replaceLast(String string, String substring, String replacement) {
+        int index = string.lastIndexOf(substring);
+        if (index == -1)
+            return string;
+        return string.substring(0, index) + replacement
+                + string.substring(index + substring.length());
+    }
 
     public static String formatDate(String date) {
         String[] pieces = date.split("-");

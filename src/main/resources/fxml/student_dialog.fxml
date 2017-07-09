@@ -5,12 +5,12 @@
 
 <?import com.jfoenix.controls.JFXDialogLayout?>
 <?import javafx.scene.control.Label?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 
 <?import app.views.AddEditComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import app.views.textfields.FloatTextField?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="app.controllers.model.dialog.StudentDialogController"
            xmlns="http://javafx.com/javafx/2.2">
@@ -30,7 +30,7 @@
 
                 <HBox styleClass="row" VBox.vgrow="ALWAYS">
                     <AddEditComboBox fx:id="mUser" promptText="Usuário" labelFloat="true" HBox.hgrow="ALWAYS"/>
-                    <JFXTextField fx:id="mBalance" promptText="Saldo" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <FloatTextField fx:id="mBalance" promptText="Saldo" labelFloat="true" HBox.hgrow="ALWAYS"/>
                 </HBox>
             </VBox>
 

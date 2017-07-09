@@ -3,7 +3,7 @@ package app.controllers.model.dialog;
 import app.controllers.MainController;
 import app.views.AddEditComboBox;
 import app.views.dialogs.VehicleModelDialog;
-import com.jfoenix.controls.JFXTextField;
+import app.views.textfields.LicensePlateTextField;
 import database.model.Vehicle;
 import database.model.Model;
 import database.model.VehicleModel;
@@ -13,7 +13,7 @@ import util.NodeUtils;
 public class VehicleDialogController extends ModelDialogController<Vehicle> {
 
     @FXML
-    private JFXTextField mLicensePlate;
+    private LicensePlateTextField mLicensePlate;
     @FXML
     private AddEditComboBox<VehicleModel, VehicleModelDialogController> mModelComboBox;
 
@@ -26,7 +26,7 @@ public class VehicleDialogController extends ModelDialogController<Vehicle> {
         if (!(NodeUtils.validateRequiredTextFields(mLicensePlate) || NodeUtils.validateRequired(mModelComboBox)))
             return null;
 
-        mModel.setLicensePlate(mLicensePlate.getText());
+        mModel.setLicensePlate(mLicensePlate.removeMask());
         mModel.setModelId(mModelComboBox.getSelectionModel().getSelectedItem().getPrimaryKey());
 
         return mModel.save();

@@ -1,5 +1,6 @@
 package app.controllers.model.dialog;
 
+import app.views.textfields.CpfTextField;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import database.model.Driver;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 public class DriverDialogController extends ModelDialogController<Driver> {
 
     @FXML
-    private JFXTextField mCPF;
+    private CpfTextField mCPF;
     @FXML
     private JFXTextField mCTPS;
     @FXML
@@ -33,7 +34,7 @@ public class DriverDialogController extends ModelDialogController<Driver> {
         if (!(NodeUtils.validateRequiredTextFields(mCPF, mCTPS, mName, mSalary) && NodeUtils.validateRequired(mBirthDate, mHiringDate)))
             return null;
 
-        mModel.setCPF(Long.parseLong(mCPF.getText().replaceAll("[/.-]", "")));
+        mModel.setCPF(Long.parseLong(mCPF.removeMask()));
         mModel.setCTPS(Long.parseLong(mCTPS.getText()));
         mModel.setName(mName.getText());
         mModel.setBirthDate(mBirthDate.getValue().toString());

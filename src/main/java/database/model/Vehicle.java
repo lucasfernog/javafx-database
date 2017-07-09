@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import util.Utils;
 
 public class Vehicle extends NonCompositePrimaryKeyModel<Vehicle> {
     private SimpleStringProperty mLicensePlate = new SimpleStringProperty("");
@@ -82,6 +83,6 @@ public class Vehicle extends NonCompositePrimaryKeyModel<Vehicle> {
 
     @Override
     public String toString() {
-        return getLicensePlate();
+        return Utils.applyMask(Utils.LICENSE_PLATE_MASK, getLicensePlate());
     }
 }

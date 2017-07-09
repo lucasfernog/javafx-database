@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import app.views.AddEditComboBox?>
+<?import app.views.textfields.LicensePlateTextField?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="app.controllers.model.dialog.VehicleDialogController"
            xmlns="http://javafx.com/javafx/2.2">
@@ -25,7 +26,7 @@
             <VBox styleClass="column">
                 <HBox styleClass="row" VBox.vgrow="ALWAYS">
                     <AddEditComboBox fx:id="mModelComboBox" promptText="Modelo" labelFloat="true" HBox.hgrow="ALWAYS"/>
-                    <JFXTextField fx:id="mLicensePlate" promptText="Placa" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <LicensePlateTextField fx:id="mLicensePlate" promptText="Placa" labelFloat="true" HBox.hgrow="ALWAYS"/>
                 </HBox>
             </VBox>
 

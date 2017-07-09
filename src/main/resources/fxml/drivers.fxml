@@ -11,6 +11,7 @@
 
 <?import app.views.ButtonColumn?>
 
+<?import app.views.textfields.NumericTextField?>
 <StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/2.2">
     <VBox styleClass="query-container">
@@ -21,7 +22,7 @@
         </HBox>
 
         <StackPane StackPane.alignment="CENTER_RIGHT" maxWidth="200">
-            <JFXTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
+            <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
         </StackPane>
 
         <JFXTreeTableView fx:id="mTable">

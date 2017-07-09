@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import app.views.textfields.CpfTextField?>
+<?import app.views.textfields.FloatTextField?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="app.controllers.model.dialog.DriverDialogController"
            xmlns="http://javafx.com/javafx/2.2">
@@ -24,12 +26,12 @@
         <body>
             <VBox styleClass="column">
                 <HBox styleClass="row" VBox.vgrow="ALWAYS">
-                    <JFXTextField fx:id="mCPF" promptText="CPF" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <CpfTextField fx:id="mCPF" promptText="CPF" labelFloat="true" HBox.hgrow="ALWAYS"/>
                     <JFXTextField fx:id="mCTPS" promptText="CTPS" labelFloat="true" HBox.hgrow="ALWAYS"/>
                 </HBox>
                 <HBox styleClass="row" VBox.vgrow="ALWAYS">
                     <JFXTextField fx:id="mName" promptText="Nome" labelFloat="true" HBox.hgrow="ALWAYS"/>
-                    <JFXTextField fx:id="mSalary" promptText="Salário" labelFloat="true" HBox.hgrow="ALWAYS"/>
+                    <FloatTextField fx:id="mSalary" promptText="Salário" labelFloat="true" HBox.hgrow="ALWAYS"/>
                 </HBox>
                 <HBox styleClass="row" VBox.vgrow="ALWAYS">
                     <JFXDatePicker fx:id="mBirthDate" promptText="Data de nascimento" HBox.hgrow="ALWAYS"/>
