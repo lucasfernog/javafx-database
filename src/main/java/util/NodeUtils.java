@@ -47,6 +47,30 @@ public class NodeUtils {
         });
     }
 
+    public static <T extends NonCompositePrimaryKeyModel> void removeItemById(ComboBox<T> comboBox, int id) {
+        Platform.runLater(() -> {
+            ObservableList<T> list = comboBox.getItems();
+            T item = Utils.find(list, id);
+            if (item != null)
+                comboBox.getItems().remove(item);
+            else
+                list.addListener(new ListChangeListener<T>() {
+                    @Override
+                    public void onChanged(Change<? extends T> change) {
+                        while (change.next()) {
+                            List<? extends T> added = change.getList();
+                            for (T model : added)
+                                if (model.getPrimaryKey() == id) {
+                                    comboBox.getItems().remove(model);
+                                    list.removeListener(this);
+                                    break;
+                                }
+                        }
+                    }
+                });
+        });
+    }
+
     private static <T extends NonCompositePrimaryKeyModel> void updateChildComboBoxItems(ComboBox<T> comboBox, ObservableList<T> items, Function<T, SimpleIntegerProperty> mapper, int id) {
         comboBox.setItems(Utils.filter(items, model -> mapper.apply(model).getValue() == id || model.getPrimaryKey() <= 0));
         comboBox.setDisable(id <= 0);

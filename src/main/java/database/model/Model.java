@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import database.Database.Callback;
 import database.Database.Callback.OnErrorListener;
 
+import java.util.List;
+
 public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
     /**
@@ -54,6 +56,16 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
 
     void onSave(Integer generatedKey) {
 
+    }
+
+    static <T extends Model> void sync(Iterable<T> oldList, List<T> newList) {
+        if (oldList != null)
+            for (T item : oldList)
+                if (!newList.contains(item))
+                    item.delete();
+
+        for (T item : newList)
+            item.save();
     }
 
     /**

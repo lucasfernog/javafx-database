@@ -1,8 +1,6 @@
 package database.model;
 
-import database.QueryBuilder;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableList;
 
 public abstract class NonCompositePrimaryKeyModel<T extends Model> extends Model<T> {
     private SimpleIntegerProperty mPrimaryKey = new SimpleIntegerProperty(this, getPrimaryKeyName());
@@ -37,16 +35,6 @@ public abstract class NonCompositePrimaryKeyModel<T extends Model> extends Model
 
     public SimpleIntegerProperty primaryKeyProperty() {
         return mPrimaryKey;
-    }
-
-    static <T extends NonCompositePrimaryKeyModel> void sync(ObservableList<T> oldList, ObservableList<T> newList) {
-        if (oldList != null)
-            for (T item : oldList)
-                if (!newList.contains(item))
-                    item.delete();
-
-        for (T item : newList)
-            item.save();
     }
 
     @Override
