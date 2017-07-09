@@ -39,6 +39,7 @@
                                     minWidth="180" text="Salário (R$)"
                                     resizable="false"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
+                <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
             </columns>
         </JFXTreeTableView>
 

@@ -165,6 +165,17 @@ public class Database {
         });
     }
 
+    public void delete(String tableName, String where) {
+        mDatabaseExecutor.execute(() -> {
+            try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+                statement.executeUpdate("DELETE FROM " + tableName + " WHERE " + where);
+            }
+            catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     /**
      * Método que retorna uma model a ser utilizada para select
      * (usado simplesmente para melhor legibilidade)

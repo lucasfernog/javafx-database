@@ -21,6 +21,9 @@ public abstract class ModelQueryController<T extends Model<T>> {
     private ButtonColumn<Model> mEditColumn;
 
     @FXML
+    private ButtonColumn<Model> mRemoveColumn;
+
+    @FXML
     private JFXButton mInsertButton;
 
     @FXML
@@ -67,6 +70,11 @@ public abstract class ModelQueryController<T extends Model<T>> {
 
         //Alterar
         mEditColumn.setOnButtonClickListener(index -> showModelDialog(mList.get(index), true));
+        //Remover
+        mRemoveColumn.setOnButtonClickListener(index -> {
+            mList.get(index).delete();
+            mList.remove(index);
+        });
     }
 
     protected JFXTreeTableView getTable() {

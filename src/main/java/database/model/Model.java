@@ -87,7 +87,7 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
      * Remove a model do banco de dados
      */
     public void delete() {
-
+        Database.getInstance().delete(getTableName(), getWhereClauseForPrimaryKey());
     }
 
     public static class SaveCallback {
