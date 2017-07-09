@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.controllers.model.query.DriverController;
 import app.controllers.model.query.ScheduleController;
+import app.controllers.model.query.UserController;
 import app.controllers.model.query.VehicleController;
 import com.jfoenix.controls.JFXListView;
 import io.datafx.controller.ViewController;
@@ -33,6 +34,9 @@ public class SideMenuController {
     private Node mScheduleItem;
 
     @FXML
+    private Node mUserItem;
+
+    @FXML
     private JFXListView<Node> mSideList;
 
     /**
@@ -58,6 +62,7 @@ public class SideMenuController {
         bindNodeToController(mScheduleItem, ScheduleController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mVehicleItem, VehicleController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mDriverItem, DriverController.class, contentFlow, contentFlowHandler);
+        bindNodeToController(mUserItem, UserController.class, contentFlow, contentFlowHandler);
     }
 
     private void bindNodeToController(Node node, Class<?> controllerClass, Flow flow, FlowHandler flowHandler) {
