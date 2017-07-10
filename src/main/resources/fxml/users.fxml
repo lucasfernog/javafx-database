@@ -27,7 +27,7 @@
             <FloatTextField fx:id="mSearchBalance" promptText="Saldo" labelFloat="true" onAction="#search"/>
         </HBox>
 
-        <JFXTreeTableView fx:id="mTable">
+        <JFXTreeTableView fx:id="mTable" VBox.vgrow="ALWAYS">
             <columns>
                 <JFXTreeTableColumn fx:id="mCodeColumn" minWidth="133" text="Código" prefWidth="133" resizable="false"/>
                 <JFXTreeTableColumn fx:id="mNameColumn" minWidth="250" text="Nome" prefWidth="250" resizable="false"/>
@@ -38,7 +38,6 @@
             </columns>
         </JFXTreeTableView>
 
-        <Pane VBox.vgrow="ALWAYS"/>
         <HBox>
             <Pane HBox.hgrow="ALWAYS"/>
             <JFXButton fx:id="mInsertButton" styleClass="btn-danger, fab, fab-add"/>

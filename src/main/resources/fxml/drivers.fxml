@@ -28,7 +28,7 @@
             <FloatTextField fx:id="mSearchSalary" promptText="Salário" labelFloat="true" onAction="#search"/>
         </HBox>
 
-        <JFXTreeTableView fx:id="mTable">
+        <JFXTreeTableView fx:id="mTable" VBox.vgrow="ALWAYS">
             <columns>
                 <JFXTreeTableColumn fx:id="mCodeColumn"
                                     minWidth="133" text="Código"
@@ -47,7 +47,6 @@
             </columns>
         </JFXTreeTableView>
 
-        <Pane VBox.vgrow="ALWAYS"/>
         <HBox>
             <Pane HBox.hgrow="ALWAYS"/>
             <JFXButton fx:id="mInsertButton" styleClass="btn-danger, fab, fab-add"/>

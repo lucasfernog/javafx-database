@@ -32,7 +32,7 @@
             <JFXComboBox fx:id="mSearchDriver" promptText="Motorista" labelFloat="true" onAction="#search"/>
         </HBox>
 
-        <JFXTreeTableView fx:id="mTable">
+        <JFXTreeTableView fx:id="mTable" VBox.vgrow="ALWAYS">
             <columns>
                 <JFXTreeTableColumn fx:id="mTypeColumn" minWidth="200" text="Tipo" prefWidth="200" resizable="false"/>
                 <JFXTreeTableColumn fx:id="mTimeColumn" minWidth="133" text="Saída" prefWidth="133" resizable="false"/>
@@ -46,7 +46,6 @@
             </columns>
         </JFXTreeTableView>
 
-        <Pane VBox.vgrow="ALWAYS"/>
         <HBox>
             <Pane HBox.hgrow="ALWAYS"/>
             <JFXButton fx:id="mInsertButton" styleClass="btn-danger, fab, fab-add"/>
