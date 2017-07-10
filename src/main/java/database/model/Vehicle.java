@@ -26,6 +26,20 @@ public class Vehicle extends NonCompositePrimaryKeyModel<Vehicle> {
         vehicle.setLicensePlate(rowMap.getAsString("placa"));
         vehicle.setModelId(rowMap.getAsInteger("modelo"));
 
+        String modelName = rowMap.getAsString("nome_modelo");
+        if (!Utils.isEmpty(modelName)) {
+            vehicle.mModel = new VehicleModel();
+            vehicle.mModel.setPrimaryKey(vehicle.getModelId());
+            vehicle.mModel.setName(modelName);
+
+            String manufacturerName = rowMap.getAsString("nome_fabricante");
+            if (!Utils.isEmpty(manufacturerName)) {
+                Manufacturer manufacturer = new Manufacturer();
+                manufacturer.setName(manufacturerName);
+                vehicle.mModel.setManufacturer(manufacturer);
+            }
+        }
+
         return vehicle;
     }
 

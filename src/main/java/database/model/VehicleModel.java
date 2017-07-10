@@ -8,8 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class VehicleModel extends NonCompositePrimaryKeyModel<VehicleModel> {
+
     private SimpleStringProperty mName = new SimpleStringProperty("");
     private SimpleIntegerProperty mManufacturerId = new SimpleIntegerProperty();
+
+    private Manufacturer mManufacturer;
 
     public static ObservableList<VehicleModel> getAll() {
         ObservableList<VehicleModel> list = FXCollections.observableArrayList();
@@ -73,6 +76,14 @@ public class VehicleModel extends NonCompositePrimaryKeyModel<VehicleModel> {
 
     public SimpleIntegerProperty manufacturerProperty() {
         return mManufacturerId;
+    }
+
+    public Manufacturer getManufacturer() {
+        return mManufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        mManufacturer = manufacturer;
     }
 
     @Override
