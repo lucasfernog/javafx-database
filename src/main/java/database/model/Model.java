@@ -47,6 +47,7 @@ public abstract class Model<T extends Model> extends RecursiveTreeObject<T> {
             Callback<RowMap> databaseCallback = new Callback<>();
             databaseCallback.onError(callback.getOnErrorListener());
             databaseCallback.onSuccess((rowMap) -> callback.onSuccess(from(rowMap)));
+            databaseCallback.onFinish(callback::onFinish);
 
             Database.getInstance().select(query, databaseCallback);
         });

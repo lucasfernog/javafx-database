@@ -2,15 +2,17 @@ package app.controllers.model.query;
 
 import app.views.dialogs.ModelDialog;
 import app.views.dialogs.StudentDialog;
+import app.views.textfields.FloatTextField;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import database.Database;
+import database.QueryBuilder;
 import database.model.Student;
 import io.datafx.controller.ViewController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import util.NodeUtils;
+import util.Utils;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -22,21 +24,43 @@ public class StudentController extends ModelQueryController<Student> {
     private StackPane mRoot;
 
     @FXML
-    private JFXTreeTableColumn<Student, Integer> mCodeColumn;
+    private JFXTextField mSearchCode;
+    @FXML
+    private JFXTextField mSearchName;
+    @FXML
+    private FloatTextField mSearchBalance;
+
+    @FXML
+    private JFXTreeTableColumn<Student, Number> mCodeColumn;
+    @FXML
+    private JFXTreeTableColumn<Student, String> mNameColumn;
+    @FXML
+    private JFXTreeTableColumn<Student, Number> mBalanceColumn;
 
     @Override
-    ObservableList<Student> getList() {
-        ObservableList<Student> list = FXCollections.observableArrayList();
+    QueryBuilder<Student> getSearchQuery() {
+        QueryBuilder<Student> query = Database.from(Student.class)
+                .select("estudantes.*", "nome")
+                .innerJoin("usuarios", "usuarios.codigo", "=", "usuario");
 
-        Database.from(Student.class)
-                .select("*")
-                .execute(new Database.Callback<Student>() {
-                    public void onSuccess(Student student) {
-                        list.add(student);
-                    }
-                });
+        String searchCode = mSearchCode.getText();
+        if (!Utils.isEmpty(searchCode))
+            query.where("usuario", "=", Integer.valueOf(searchCode));
 
-        return list;
+        String searchName = mSearchName.getText();
+        if (!Utils.isEmpty(searchName))
+            query.where("nome", "LIKE", "%" + searchName + "%");
+
+        String searchBalance = mSearchBalance.getText();
+        if (!Utils.isEmpty(searchBalance))
+            query.where("estudantes.saldo", "=", Float.valueOf(searchBalance));
+
+        return query;
+    }
+
+    @Override
+    void clearQuery() {
+        mSearchCode.setText("");
     }
 
     @Override
@@ -48,6 +72,8 @@ public class StudentController extends ModelQueryController<Student> {
     public void init() {
         super.init();
 
-        NodeUtils.setupCellValueFactory(mCodeColumn, student -> student.primaryKeyProperty().asObject());
+        NodeUtils.setupCellValueFactory(mCodeColumn, Student::primaryKeyProperty);
+        NodeUtils.setupCellValueFactory(mNameColumn, student -> student.getUser().nameProperty());
+        NodeUtils.setupCellValueFactory(mBalanceColumn, Student::balanceProperty);
     }
 }

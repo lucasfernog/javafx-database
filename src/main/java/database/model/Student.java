@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Student extends NonCompositePrimaryKeyModel<Student> {
 
+    private User mUser;
     private SimpleStringProperty mDueDate = new SimpleStringProperty();
     private SimpleFloatProperty mBalance = new SimpleFloatProperty();
     private boolean mIsLoaded = false;
@@ -34,6 +35,11 @@ public class Student extends NonCompositePrimaryKeyModel<Student> {
         student.setDueDate(rowMap.getAsString("vencimento"));
         student.setBalance(rowMap.getAsFloat("saldo"));
         student.mIsLoaded = true;
+
+        if (rowMap.containsKey("nome")) {
+            student.mUser = new User();
+            student.mUser.setName(rowMap.getAsString("nome"));
+        }
 
         return student;
     }
@@ -83,5 +89,9 @@ public class Student extends NonCompositePrimaryKeyModel<Student> {
 
     public SimpleIntegerProperty userIdProperty() {
         return primaryKeyProperty();
+    }
+
+    public User getUser() {
+        return mUser;
     }
 }

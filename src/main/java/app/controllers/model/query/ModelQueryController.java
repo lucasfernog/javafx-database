@@ -6,7 +6,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import database.Database;
+import database.QueryBuilder;
 import database.model.Model;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,24 +20,46 @@ import java.io.IOException;
 public abstract class ModelQueryController<T extends Model<T>> {
     @FXML
     private JFXTreeTableView<T> mTable;
-
     @FXML
     private ButtonColumn<Model> mEditColumn;
-
     @FXML
     private ButtonColumn<Model> mRemoveColumn;
 
     @FXML
     private JFXButton mInsertButton;
-
     @FXML
     private JFXButton mSearchButton;
+    @FXML
+    private JFXButton mClearButton;
 
-    ObservableList<T> mList;
+    private ObservableList<T> mList;
 
     abstract ModelDialog getModelDialog(T model, boolean canSave) throws IOException;
 
-    abstract ObservableList<T> getList();
+    abstract QueryBuilder<T> getSearchQuery();
+
+    abstract void clearQuery();
+
+    Database.Callback<T> getCallback() {
+        return new Database.Callback<T>() {
+            boolean first = true;
+            @Override
+            public void onSuccess(T item) {
+                if (first) {
+                    first = false;
+                    mList = FXCollections.observableArrayList();
+                }
+                mList.add(item);
+            }
+
+            @Override
+            public void onFinish() {
+                if (first)
+                    mList = FXCollections.observableArrayList();
+                Platform.runLater(() -> mTable.setRoot(new RecursiveTreeItem<>(mList, RecursiveTreeObject::getChildren)));
+            }
+        };
+    }
 
     private void showModelDialog(T model, boolean canSave) {
         try {
@@ -48,8 +74,7 @@ public abstract class ModelQueryController<T extends Model<T>> {
     }
 
     private void setTableData() {
-        mList = getList();
-        mTable.setRoot(new RecursiveTreeItem<>(mList, RecursiveTreeObject::getChildren));
+        getSearchQuery().execute(getCallback());
     }
 
     protected void init() {
@@ -66,7 +91,14 @@ public abstract class ModelQueryController<T extends Model<T>> {
         //Incluir
         mInsertButton.addEventHandler(ActionEvent.ACTION, event -> newModelDialog());
 
+        //Pesquisar
         mSearchButton.addEventHandler(ActionEvent.ACTION, event -> setTableData());
+
+        //Limpar
+        mClearButton.addEventHandler(ActionEvent.ACTION, event -> {
+            clearQuery();
+            setTableData();
+        });
 
         //Alterar
         mEditColumn.setOnButtonClickListener(index -> showModelDialog(mList.get(index), true));

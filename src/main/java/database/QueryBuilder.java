@@ -224,7 +224,7 @@ public class QueryBuilder<T extends Model> {
             int i = 0;
             for (Where where : mWheres)
                 query.append(" ")
-                        .append(where.toString(i++ == 1))
+                        .append(where.toString(i++ != 0))
                         .append(" ");
         }
 

@@ -223,6 +223,9 @@ public class Database {
                 e.printStackTrace();
                 callback.onError(e);
             }
+            finally {
+                callback.onFinish();
+            }
         });
     }
 
@@ -254,8 +257,13 @@ public class Database {
             void onError(Exception exception);
         }
 
+        public interface OnFinishListener {
+            void onFinish();
+        }
+
         private OnSuccessListener<R> mOnSuccessListener;
         private OnErrorListener mOnErrorListener;
+        private OnFinishListener mOnFinishListener;
 
         public Callback onSuccess(OnSuccessListener<R> onSuccessListener) {
             mOnSuccessListener = onSuccessListener;
@@ -265,6 +273,16 @@ public class Database {
         public Callback onError(OnErrorListener onErrorListener) {
             mOnErrorListener = onErrorListener;
             return this;
+        }
+
+        public Callback onFinish(OnFinishListener onFinishListener) {
+            mOnFinishListener = onFinishListener;
+            return this;
+        }
+
+        public void onFinish() {
+            if (mOnFinishListener != null)
+                mOnFinishListener.onFinish();
         }
 
         public void onSuccess(R response) {

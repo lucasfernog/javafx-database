@@ -20,15 +20,13 @@
             <JFXButton fx:id="mClearButton" styleClass="btn-warning" text="Limpar pesquisa"/>
         </HBox>
 
-        <StackPane StackPane.alignment="CENTER_RIGHT" maxWidth="200">
+        <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
             <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
-        </StackPane>
+        </HBox>
 
         <JFXTreeTableView fx:id="mTable">
             <columns>
-                <JFXTreeTableColumn fx:id="mTimeColumn"
-                                    minWidth="133" text="Saída" prefWidth="133"
-                                    resizable="false"/>
+                <JFXTreeTableColumn fx:id="mTimeColumn" minWidth="133" text="Saída" prefWidth="133" resizable="false"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
                 <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
             </columns>

@@ -12,6 +12,7 @@
 <?import app.views.ButtonColumn?>
 
 <?import app.views.textfields.NumericTextField?>
+<?import app.views.textfields.FloatTextField?>
 <StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/2.2">
     <VBox styleClass="query-container">
@@ -21,9 +22,11 @@
             <JFXButton fx:id="mClearButton" styleClass="btn-warning" text="Limpar pesquisa"/>
         </HBox>
 
-        <StackPane StackPane.alignment="CENTER_RIGHT" maxWidth="200">
+        <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
             <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
-        </StackPane>
+            <JFXTextField fx:id="mSearchName" promptText="Nome" labelFloat="true"/>
+            <FloatTextField fx:id="mSearchSalary" promptText="Salário" labelFloat="true"/>
+        </HBox>
 
         <JFXTreeTableView fx:id="mTable">
             <columns>

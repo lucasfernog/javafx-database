@@ -2,15 +2,16 @@ package app.controllers.model.query;
 
 import app.views.dialogs.ModelDialog;
 import app.views.dialogs.ScheduleDialog;
+import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import database.Database;
+import database.QueryBuilder;
 import database.model.Schedule;
 import io.datafx.controller.ViewController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import util.NodeUtils;
+import util.Utils;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
@@ -22,21 +23,26 @@ public class ScheduleController extends ModelQueryController<Schedule> {
     private StackPane mRoot;
 
     @FXML
+    private JFXTextField mSearchCode;
+
+    @FXML
     private JFXTreeTableColumn<Schedule, String> mTimeColumn;
 
     @Override
-    ObservableList<Schedule> getList() {
-        ObservableList<Schedule> schedules = FXCollections.observableArrayList();
+    QueryBuilder<Schedule> getSearchQuery() {
+        QueryBuilder<Schedule> query = Database.from(Schedule.class)
+                .select("saida", "tipo", "veiculo", "linha", "motorista");
 
-        Database.from(Schedule.class)
-                .select("saida", "tipo", "veiculo", "linha", "motorista")
-                .execute(new Database.Callback<Schedule>() {
-                    public void onSuccess(Schedule schedule) {
-                        schedules.add(schedule);
-                    }
-                });
+        String searchCode = mSearchCode.getText();
+        if (!Utils.isEmpty(searchCode))
+            query.where("codigo", "=", Integer.valueOf(searchCode));
 
-        return schedules;
+        return query;
+    }
+
+    @Override
+    void clearQuery() {
+        mSearchCode.setText("");
     }
 
     @Override

@@ -1,11 +1,13 @@
 package app.views.textfields;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 
 public class MaskTextField extends JFXTextField {
     private String mask;
     private String pattern;
+    private SimpleBooleanProperty clearIfInvalid = new SimpleBooleanProperty(true);
 
     public MaskTextField() {
         super();
@@ -55,7 +57,7 @@ public class MaskTextField extends JFXTextField {
         });
 
         focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue && getText().length() != mask.length())
+            if (getClearIfInvalid() && !newValue && getText().length() != mask.length())
                 setText("");
 
         });
@@ -67,5 +69,17 @@ public class MaskTextField extends JFXTextField {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public boolean getClearIfInvalid() {
+        return clearIfInvalidProperty().get();
+    }
+
+    public void setClearIfInvalid(boolean clearIfInvalid) {
+        this.clearIfInvalidProperty().set(clearIfInvalid);
+    }
+
+    public SimpleBooleanProperty clearIfInvalidProperty() {
+        return clearIfInvalid;
     }
 }

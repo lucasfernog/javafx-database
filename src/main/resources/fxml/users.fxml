@@ -10,6 +10,8 @@
 
 <?import app.views.ButtonColumn?>
 <?import app.views.textfields.NumericTextField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import app.views.textfields.FloatTextField?>
 <StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/2.2">
     <VBox styleClass="query-container">
@@ -19,14 +21,17 @@
             <JFXButton fx:id="mClearButton" styleClass="btn-warning" text="Limpar pesquisa"/>
         </HBox>
 
-        <StackPane StackPane.alignment="CENTER_RIGHT" maxWidth="200">
+        <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
             <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
-        </StackPane>
+            <JFXTextField fx:id="mSearchName" promptText="Nome" labelFloat="true"/>
+            <FloatTextField fx:id="mSearchBalance" promptText="Saldo" labelFloat="true"/>
+        </HBox>
 
         <JFXTreeTableView fx:id="mTable">
             <columns>
-                <JFXTreeTableColumn fx:id="mCodeColumn"
-                                    minWidth="133" text="Código" prefWidth="133"
+                <JFXTreeTableColumn fx:id="mCodeColumn" minWidth="133" text="Código" prefWidth="133" resizable="false"/>
+                <JFXTreeTableColumn fx:id="mNameColumn" minWidth="250" text="Nome" prefWidth="250" resizable="false"/>
+                <JFXTreeTableColumn fx:id="mBalanceColumn" minWidth="133" text="Saldo" prefWidth="133"
                                     resizable="false"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
                 <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>

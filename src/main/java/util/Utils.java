@@ -29,6 +29,10 @@ public class Utils {
         return result.toString();
     }
 
+    public static boolean isEmpty(CharSequence charSequence) {
+        return charSequence == null || charSequence.equals("");
+    }
+
     public static int countOccurrences(String haystack, char needle) {
         int count = 0;
         for (int i = 0; i < haystack.length(); i++) {
