@@ -28,11 +28,11 @@
         </HBox>
 
         <JFXTreeTableView fx:id="mTable" VBox.vgrow="ALWAYS">
+            <columnResizePolicy><JFXTreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
             <columns>
-                <JFXTreeTableColumn fx:id="mCodeColumn" minWidth="133" text="Código" prefWidth="133" resizable="false"/>
-                <JFXTreeTableColumn fx:id="mNameColumn" minWidth="250" text="Nome" prefWidth="250" resizable="false"/>
-                <JFXTreeTableColumn fx:id="mBalanceColumn" minWidth="133" text="Saldo" prefWidth="133"
-                                    resizable="false"/>
+                <JFXTreeTableColumn fx:id="mCodeColumn" text="Código"/>
+                <JFXTreeTableColumn fx:id="mNameColumn" text="Nome"/>
+                <JFXTreeTableColumn fx:id="mBalanceColumn" text="Saldo"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
                 <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
             </columns>

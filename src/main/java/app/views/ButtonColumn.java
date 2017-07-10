@@ -17,7 +17,8 @@ public class ButtonColumn<S> extends JFXTreeTableColumn<S, Boolean> {
     public ButtonColumn() {
         setCellFactory(column -> new ButtonCell());
         setSortable(false);
-        setResizable(false);
+        setMaxWidth(60);
+        setMinWidth(60);
         getStyleClass().add("column-button");
     }
 

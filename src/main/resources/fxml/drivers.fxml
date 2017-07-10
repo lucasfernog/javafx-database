@@ -29,19 +29,12 @@
         </HBox>
 
         <JFXTreeTableView fx:id="mTable" VBox.vgrow="ALWAYS">
+            <columnResizePolicy><JFXTreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
             <columns>
-                <JFXTreeTableColumn fx:id="mCodeColumn"
-                                    minWidth="133" text="Código"
-                                    resizable="false"/>
-                <JFXTreeTableColumn fx:id="mNameColumn"
-                                    minWidth="250" text="Nome"
-                                    resizable="false"/>
-                <JFXTreeTableColumn fx:id="mHiringDateColumn"
-                                    minWidth="180" text="Data de contratação"
-                                    resizable="false"/>
-                <JFXTreeTableColumn fx:id="mSalaryColumn"
-                                    minWidth="180" text="Salário (R$)"
-                                    resizable="false"/>
+                <JFXTreeTableColumn fx:id="mCodeColumn" text="Código"/>
+                <JFXTreeTableColumn fx:id="mNameColumn" text="Nome"/>
+                <JFXTreeTableColumn fx:id="mHiringDateColumn" text="Data de contratação"/>
+                <JFXTreeTableColumn fx:id="mSalaryColumn" text="Salário (R$)"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
                 <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
             </columns>

@@ -29,11 +29,12 @@
         </HBox>
 
         <JFXTreeTableView fx:id="mTable" VBox.vgrow="ALWAYS">
+            <columnResizePolicy><JFXTreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
             <columns>
-                <JFXTreeTableColumn fx:id="mCodeColumn" minWidth="133" text="Código" prefWidth="133" resizable="false"/>
-                <JFXTreeTableColumn fx:id="mManufacturerColumn" minWidth="200" text="Fabricante" prefWidth="200" resizable="false"/>
-                <JFXTreeTableColumn fx:id="mVehicleModelColumn" minWidth="200" text="Modelo" prefWidth="200" resizable="false"/>
-                <JFXTreeTableColumn fx:id="mLicensePlateColumn" minWidth="250" text="Placa" prefWidth="250" resizable="false"/>
+                <JFXTreeTableColumn fx:id="mCodeColumn" text="Código"/>
+                <JFXTreeTableColumn fx:id="mManufacturerColumn" text="Fabricante"/>
+                <JFXTreeTableColumn fx:id="mVehicleModelColumn" text="Modelo"/>
+                <JFXTreeTableColumn fx:id="mLicensePlateColumn" text="Placa"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
                 <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
             </columns>
