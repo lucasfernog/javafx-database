@@ -11,7 +11,6 @@ public class RouteBusStop extends CompositePrimaryKeyModel<RouteBusStop> {
     public RouteBusStop(int routeId, int busStopId) {
         setRouteId(routeId);
         setBusStopId(busStopId);
-        savePreviousPrimaryKeyValues(routeIdProperty(), busStopIdProperty());
     }
 
     @Override
@@ -21,7 +20,9 @@ public class RouteBusStop extends CompositePrimaryKeyModel<RouteBusStop> {
 
     @Override
     public RouteBusStop from(RowMap rowMap) {
-        return  new RouteBusStop(rowMap.getAsInteger("linha"), rowMap.getAsInteger("parada"));
+        RouteBusStop routeBusStop = new RouteBusStop(rowMap.getAsInteger("linha"), rowMap.getAsInteger("parada"));
+        routeBusStop.savePreviousPrimaryKeyValues(routeBusStop.mRouteId, routeBusStop.mBusStopId);
+        return routeBusStop;
     }
 
     @Override
