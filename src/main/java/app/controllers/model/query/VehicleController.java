@@ -92,6 +92,8 @@ public class VehicleController extends ModelQueryController<Vehicle> {
     void clearQuery() {
         mSearchCode.setText("");
         mSearchLicensePlate.setText("");
+        mSearchManufacturer.getSelectionModel().clearSelection();
+        mSearchVehicleModel.getSelectionModel().clearSelection();
     }
 
     @Override

@@ -93,8 +93,10 @@ public class NodeUtils {
         } else
             child.setDisable(true);
 
-        selectionModel.selectedItemProperty().addListener((obs, oldValue, newValue) ->
-                updateChildComboBoxItems(child, items, mapper, newValue.getPrimaryKey()));
+        selectionModel.selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue != null)
+                updateChildComboBoxItems(child, items, mapper, newValue.getPrimaryKey());
+        });
     }
 
     public static void disableAll(Node... nodes) {
