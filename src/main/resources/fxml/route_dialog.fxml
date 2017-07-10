@@ -38,8 +38,8 @@
                 <JFXTreeTableView fx:id="mBusStopTable">
                     <columns>
                         <JFXTreeTableColumn fx:id="mBusStopCEPColumn" minWidth="200" text="CEP" resizable="false"/>
-                        <JFXTreeTableColumn fx:id="mBusStopStreetColumn" minWidth="300" text="CEP" resizable="false"/>
-                        <JFXTreeTableColumn fx:id="mBusStopNumberColumn" minWidth="133" text="CEP" resizable="false"/>
+                        <JFXTreeTableColumn fx:id="mBusStopStreetColumn" minWidth="300" text="Rua" resizable="false"/>
+                        <JFXTreeTableColumn fx:id="mBusStopNumberColumn" minWidth="133" text="Número" resizable="false"/>
                         <ButtonColumn fx:id="mBusStopEditColumn" styleClass="column-edit"/>
                         <ButtonColumn fx:id="mBusStopRemoveColumn" styleClass="column-remove"/>
                     </columns>
