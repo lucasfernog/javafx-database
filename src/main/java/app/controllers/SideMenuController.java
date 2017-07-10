@@ -31,6 +31,9 @@ public class SideMenuController {
     private Node mScheduleItem;
 
     @FXML
+    private Node mRouteItem;
+
+    @FXML
     private Node mUserItem;
 
     @FXML
@@ -60,6 +63,7 @@ public class SideMenuController {
 
         //Menu handler
         bindNodeToController(mScheduleItem, ScheduleController.class, contentFlow, contentFlowHandler);
+        bindNodeToController(mRouteItem, RouteController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mVehicleItem, VehicleController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mDriverItem, DriverController.class, contentFlow, contentFlowHandler);
         bindNodeToController(mUserItem, UserController.class, contentFlow, contentFlowHandler);

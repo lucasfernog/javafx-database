@@ -10,6 +10,7 @@
     </styleClass>
     <JFXListView fx:id="mSideList">
         <Label fx:id="mScheduleItem">Horários</Label>
+        <Label fx:id="mRouteItem">Linhas</Label>
         <Label fx:id="mVehicleItem">Veículos</Label>
         <Label fx:id="mDriverItem">Motoristas</Label>
         <Label fx:id="mUserItem">Usuários</Label>

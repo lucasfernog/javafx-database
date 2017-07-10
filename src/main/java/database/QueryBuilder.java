@@ -88,6 +88,13 @@ public class QueryBuilder<T extends Model> {
     }
 
     /**
+     * WHERE EXISTS
+     */
+    public QueryBuilder<T> whereExists(BuildNewQuery whereBuilder) {
+        return where("AND", null, "EXISTS", new Raw("(" + buildQuery(whereBuilder) + ")"));
+    }
+
+    /**
      * WHERE NULL
      */
     private QueryBuilder<T> whereNullInternal(String logicalOperator, String column, boolean isNull) {
@@ -246,6 +253,19 @@ public class QueryBuilder<T extends Model> {
             mOnExecuteListener.onExecute(toString(), callback);
     }
 
+    private static class Raw {
+        private String mText;
+
+        private Raw(String text) {
+            mText = text;
+        }
+
+        @Override
+        public String toString() {
+            return mText;
+        }
+    }
+
     public static class Where {
         private String mLogicalOperator;
         private String mColumn;
@@ -273,10 +293,11 @@ public class QueryBuilder<T extends Model> {
 
             if (withLogicalOperator && mLogicalOperator != null)
                 where.append(mLogicalOperator).append(" ");
-            where.append(mColumn)
-                    .append(" ")
-                    .append(mComparator)
-                    .append(" ");
+
+            if (mColumn != null)
+                where.append(mColumn).append(" ");
+
+            where.append(mComparator).append(" ");
 
             if (mValue instanceof String) {
                 where.append("'")

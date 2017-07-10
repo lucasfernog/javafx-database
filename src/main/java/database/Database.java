@@ -299,4 +299,17 @@ public class Database {
             return mOnErrorListener;
         }
     }
+
+    public static class Column {
+        private String mName;
+
+        public Column(String name) {
+            mName = name;
+        }
+
+        @Override
+        public String toString() {
+            return mName;
+        }
+    }
 }
