@@ -63,7 +63,9 @@ public abstract class ModelQueryController<T extends Model<T>> {
 
     private void showModelDialog(T model, boolean canSave) {
         try {
-            getModelDialog(model, canSave).show();
+            ModelDialog dialog = getModelDialog(model, canSave);
+            dialog.setOnSaveListener(m -> search());
+            dialog.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
