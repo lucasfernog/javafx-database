@@ -10,7 +10,8 @@
 
 <?import app.views.ButtonColumn?>
 
-<?import app.views.textfields.NumericTextField?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <StackPane fx:id="mRoot" xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx/2.2">
     <VBox styleClass="query-container">
@@ -21,12 +22,25 @@
         </HBox>
 
         <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
-            <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true" onAction="#search"/>
+            <JFXTimePicker fx:id="mSearchTime" promptText="Saída" onAction="#search"/>
+        </HBox>
+
+        <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
+            <JFXComboBox fx:id="mSearchType" promptText="Tipo" labelFloat="true" onAction="#search"/>
+            <JFXComboBox fx:id="mSearchVehicle" promptText="Veículo" labelFloat="true" onAction="#search"/>
+            <JFXComboBox fx:id="mSearchRoute" promptText="Linha" labelFloat="true" onAction="#search"/>
+            <JFXComboBox fx:id="mSearchDriver" promptText="Motorista" labelFloat="true" onAction="#search"/>
         </HBox>
 
         <JFXTreeTableView fx:id="mTable">
             <columns>
+                <JFXTreeTableColumn fx:id="mTypeColumn" minWidth="200" text="Tipo" prefWidth="200" resizable="false"/>
                 <JFXTreeTableColumn fx:id="mTimeColumn" minWidth="133" text="Saída" prefWidth="133" resizable="false"/>
+                <JFXTreeTableColumn fx:id="mVehicleColumn" minWidth="250" text="Veículo" prefWidth="250"
+                                    resizable="false"/>
+                <JFXTreeTableColumn fx:id="mRouteColumn" minWidth="250" text="Linha" prefWidth="250" resizable="false"/>
+                <JFXTreeTableColumn fx:id="mDriverColumn" minWidth="250" text="Motorista" prefWidth="250"
+                                    resizable="false"/>
                 <ButtonColumn fx:id="mEditColumn" styleClass="column-edit"/>
                 <ButtonColumn fx:id="mRemoveColumn" styleClass="column-remove"/>
             </columns>

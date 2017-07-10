@@ -3,6 +3,7 @@ package database.model;
 import database.RowMap;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import util.Utils;
 
 public class Schedule extends CompositePrimaryKeyModel<Schedule> {
 
@@ -11,6 +12,11 @@ public class Schedule extends CompositePrimaryKeyModel<Schedule> {
     private SimpleIntegerProperty mVehicleId = new SimpleIntegerProperty();
     private SimpleIntegerProperty mRouteId = new SimpleIntegerProperty(0, "linha");
     private SimpleIntegerProperty mDriverId = new SimpleIntegerProperty();
+
+    private ScheduleType mScheduleType;
+    private Vehicle mVehicle;
+    private Route mRoute;
+    private Driver mDriver;
 
     @Override
     public String getTableName() {
@@ -26,6 +32,38 @@ public class Schedule extends CompositePrimaryKeyModel<Schedule> {
         schedule.setVehicleId(rowMap.getAsInteger("veiculo"));
         schedule.setRouteId(rowMap.getAsInteger("linha"));
         schedule.setDriverId(rowMap.getAsInteger("motorista"));
+
+        //tipo
+        String scheduleType = rowMap.getAsString("descricao_tipo");
+        if (!Utils.isEmpty(scheduleType)) {
+            schedule.mScheduleType = new ScheduleType();
+            schedule.mScheduleType.setPrimaryKey(schedule.getScheduleTypeId());
+            schedule.mScheduleType.setDescription(scheduleType);
+        }
+
+        //veículo
+        String vehicleLicensePlate = rowMap.getAsString("placa");
+        if (!Utils.isEmpty(vehicleLicensePlate)) {
+            schedule.mVehicle = new Vehicle();
+            schedule.mVehicle.setPrimaryKey(schedule.getVehicleId());
+            schedule.mVehicle.setLicensePlate(vehicleLicensePlate);
+        }
+
+        //linha
+        String routeName = rowMap.getAsString("nome_linha");
+        if (!Utils.isEmpty(routeName)) {
+            schedule.mRoute = new Route();
+            schedule.mRoute.setPrimaryKey(schedule.getRouteId());
+            schedule.mRoute.setName(routeName);
+        }
+
+        //motorista
+        String driverName = rowMap.getAsString("nome_motorista");
+        if (!Utils.isEmpty(driverName)) {
+            schedule.mDriver = new Driver();
+            schedule.mDriver.setPrimaryKey(schedule.getDriverId());
+            schedule.mDriver.setName(driverName);
+        }
 
         schedule.savePreviousPrimaryKeyValues(schedule.timeProperty(), schedule.scheduleTypeIdProperty(), schedule.routeIdProperty());
 
@@ -103,5 +141,21 @@ public class Schedule extends CompositePrimaryKeyModel<Schedule> {
 
     public SimpleIntegerProperty driverIdProperty() {
         return mDriverId;
+    }
+
+    public ScheduleType getScheduleType() {
+        return mScheduleType;
+    }
+
+    public Vehicle getVehicle() {
+        return mVehicle;
+    }
+
+    public Route getRoute() {
+        return mRoute;
+    }
+
+    public Driver getDriver() {
+        return mDriver;
     }
 }
