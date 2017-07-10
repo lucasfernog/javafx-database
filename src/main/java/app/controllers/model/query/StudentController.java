@@ -61,6 +61,8 @@ public class StudentController extends ModelQueryController<Student> {
     @Override
     void clearQuery() {
         mSearchCode.setText("");
+        mSearchName.setText("");
+        mSearchBalance.setText("");
     }
 
     @Override
