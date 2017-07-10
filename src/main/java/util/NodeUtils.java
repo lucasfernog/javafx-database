@@ -1,5 +1,7 @@
 package util;
 
+import app.controllers.MainController;
+import app.views.dialogs.AlertDialog;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -117,14 +119,6 @@ public class NodeUtils {
         });
     }
 
-    public static void numericTextInputControl(TextInputControl textInputControl) {
-        textInputControl.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                textInputControl.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-    }
-
     public static void setupRequiredTextFields(JFXTextField... textFields) {
         for (JFXTextField textField : textFields)
             setupValidatedTextField(textField, "Esse campo é obrigatório.");
@@ -160,11 +154,14 @@ public class NodeUtils {
     }
 
     public static boolean validateRequired(ComboBoxBase... nodes) {
-        for (ComboBoxBase node : nodes)
-            if (node.getValue() == null) {
+        for (ComboBoxBase node : nodes) {
+            Object value = node.getValue();
+            if (value == null || (value instanceof NonCompositePrimaryKeyModel && ((NonCompositePrimaryKeyModel) value).getPrimaryKey() <= 0)) {
                 node.requestFocus();
+                new AlertDialog(MainController.getRoot(), "Aviso", "Há campos obrigatórios não preenchidos.").show();
                 return false;
             }
+        }
         return true;
     }
 

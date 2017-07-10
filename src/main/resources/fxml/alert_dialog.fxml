@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" maxWidth="320"
+           fx:controller="app.controllers.model.dialog.AlertDialogController"
+           xmlns="http://javafx.com/javafx/2.2">
+    <JFXDialogLayout>
+
+        <!-- Título -->
+        <heading>
+            <Label fx:id="mTitle"/>
+        </heading>
+
+        <!-- Conteúdo -->
+        <body>
+            <VBox styleClass="column">
+                <HBox styleClass="row" VBox.vgrow="ALWAYS">
+                    <Label fx:id="mContent"/>
+                </HBox>
+            </VBox>
+
+        </body>
+
+        <!-- Ações -->
+        <actions>
+            <JFXButton fx:id="mOkButton" styleClass="btn-primary, btn-flat, btn-dialog">OK</JFXButton>
+        </actions>
+    </JFXDialogLayout>
+</StackPane>
