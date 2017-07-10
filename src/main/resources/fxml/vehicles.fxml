@@ -21,8 +21,8 @@
         </HBox>
 
         <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
-            <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
-            <LicensePlateTextField fx:id="mSearchLicensePlate" promptText="Placa" labelFloat="true" clearIfInvalid="false"/>
+            <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true" onAction="#search"/>
+            <LicensePlateTextField fx:id="mSearchLicensePlate" promptText="Placa" labelFloat="true" clearIfInvalid="false" onAction="#search"/>
         </HBox>
 
         <JFXTreeTableView fx:id="mTable">

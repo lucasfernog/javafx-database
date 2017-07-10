@@ -77,6 +77,11 @@ public abstract class ModelQueryController<T extends Model<T>> {
         getSearchQuery().execute(getCallback());
     }
 
+    @FXML
+    private void search() {
+        setTableData();
+    }
+
     protected void init() {
         mTable.setEditable(false);
         setTableData();
@@ -92,12 +97,12 @@ public abstract class ModelQueryController<T extends Model<T>> {
         mInsertButton.addEventHandler(ActionEvent.ACTION, event -> newModelDialog());
 
         //Pesquisar
-        mSearchButton.addEventHandler(ActionEvent.ACTION, event -> setTableData());
+        mSearchButton.addEventHandler(ActionEvent.ACTION, event -> search());
 
         //Limpar
         mClearButton.addEventHandler(ActionEvent.ACTION, event -> {
             clearQuery();
-            setTableData();
+            search();
         });
 
         //Alterar

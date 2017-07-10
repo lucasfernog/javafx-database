@@ -22,9 +22,9 @@
         </HBox>
 
         <HBox styleClass="row" StackPane.alignment="CENTER_RIGHT">
-            <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true"/>
-            <JFXTextField fx:id="mSearchName" promptText="Nome" labelFloat="true"/>
-            <FloatTextField fx:id="mSearchBalance" promptText="Saldo" labelFloat="true"/>
+            <NumericTextField fx:id="mSearchCode" promptText="Código" labelFloat="true" onAction="#search"/>
+            <JFXTextField fx:id="mSearchName" promptText="Nome" labelFloat="true" onAction="#search"/>
+            <FloatTextField fx:id="mSearchBalance" promptText="Saldo" labelFloat="true" onAction="#search"/>
         </HBox>
 
         <JFXTreeTableView fx:id="mTable">
