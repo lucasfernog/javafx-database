@@ -22,8 +22,7 @@ public class VehicleDialogController extends ModelDialogController<Vehicle> {
         if (mModel == null)
             mModel = new Vehicle();
 
-
-        if (!(NodeUtils.validateRequiredTextFields(mLicensePlate) || NodeUtils.validateRequired(mModelComboBox)))
+        if (!(NodeUtils.validateRequiredTextFields(mLicensePlate) && NodeUtils.validateRequired(mModelComboBox)))
             return null;
 
         mModel.setLicensePlate(mLicensePlate.removeMask());
