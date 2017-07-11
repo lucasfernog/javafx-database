@@ -100,4 +100,5 @@ INSERT INTO onibus.tipos (descricao) VALUES ('Normal'), ('Sábado'), ('Feriado'),
 CREATE USER usuario PASSWORD 'senha';
 GRANT USAGE ON SCHEMA onibus TO usuario;
 GRANT SELECT, INSERT, UPDATE, DELETE, REFERENCES ON ALL TABLES IN SCHEMA onibus TO usuario;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA onibus TO usuario;
 REVOKE INSERT, UPDATE, DELETE ON onibus.tipos FROM usuario;
