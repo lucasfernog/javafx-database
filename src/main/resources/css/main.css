@@ -27,13 +27,13 @@
 }
 
 .title-label {
-    -fx-font-size: 16.0px;
-    -fx-padding: 14.0px;
+    -fx-font-size: 16px;
+    -fx-padding: 14px;
     -fx-text-fill: rgba(0.0, 0.0, 0.0, 0.87);
 }
 
 .radio-button-title-label {
-    -fx-font-size: 16.0px;
+    -fx-font-size: 16px;
     -fx-padding: 14.0 0.0 -20.0 0.0;
     -fx-text-fill: rgba(0.0, 0.0, 0.0, 0.87);
 }
@@ -65,16 +65,16 @@
 .dialog-trigger {
     -fx-background-color: WHITE;
     -jfx-button-type: RAISED;
-    -fx-font-size: 14.0px;
+    -fx-font-size: 14px;
 }
 
 .jfx-dialog-layout {
-    -fx-padding: 24.0px 24.0px 0px 24.0px;
+    -fx-padding: 24px 24px 0px 24px;
     -fx-text-fill: rgba(0.0, 0.0, 0.0, 0.87);
 }
 
 .jfx-layout-heading {
-    -fx-font-size: 20.0px;
+    -fx-font-size: 20px;
     -fx-font-weight: BOLD;
     -fx-alignment: center-left;
     -fx-padding: 5.0 0.0 20.0 0.0;
@@ -85,8 +85,8 @@
 }
 
 .jfx-layout-body .label {
-    -fx-font-size: 14.0px;
-    -fx-pref-width: 400.0px;
+    -fx-font-size: 14px;
+    -fx-pref-width: 400px;
     -fx-wrap-text: true;
 }
 
@@ -112,11 +112,11 @@
 
 .jfx-popup-container {
     -fx-background-color: WHITE;
-    -fx-pref-width: 151.0px;
+    -fx-pref-width: 151px;
 }
 
 .popup-list-view {
-    -fx-pref-width: 150.0px;
+    -fx-pref-width: 150px;
 }
 
 .jfx-snackbar-content {
@@ -179,7 +179,7 @@
     -fx-font-weight: BOLD;
     -fx-background-color: #5264AE;
     -fx-pref-width: 100.0%;
-    -fx-pref-height: 64.0px;
+    -fx-pref-height: 64px;
 }
 
 .jfx-tool-bar HBox {
@@ -205,7 +205,7 @@
 }
 
 .option-list-view {
-    -fx-pref-width: 160.0px;
+    -fx-pref-width: 160px;
     -fx-background-color: WHITE;
 }
 
@@ -222,7 +222,7 @@
  ******************************************************************************/
 
 .jfx-radio-button .radio {
-    -fx-stroke-width: 2.0px;
+    -fx-stroke-width: 2px;
     -fx-fill: transparent;
 }
 
@@ -231,11 +231,11 @@
 }
 
 .custom-jfx-radio-button {
-    -fx-font-size: 16.0px;
+    -fx-font-size: 16px;
 }
 
 .custom-jfx-radio-button .radio {
-    -fx-stroke-width: 2.0px;
+    -fx-stroke-width: 2px;
     -fx-fill: transparent;
 }
 
@@ -510,9 +510,9 @@
 
 .jfx-list-view {
     -fx-background-insets: 0.0;
-    -jfx-cell-horizontal-margin: 0.0;
-    -jfx-cell-vertical-margin: 5.0;
-    -jfx-vertical-gap: 10.0;
+    -jfx-cell-horizontal-margin: 0;
+    -jfx-cell-vertical-margin: 5px;
+    -jfx-vertical-gap: 10px;
     -jfx-expanded: false;
 }
 
@@ -523,10 +523,10 @@
 
 .custom-jfx-list-view {
     -fx-background-insets: 0.0;
-    -jfx-cell-horizontal-margin: 0.0;
-    -jfx-cell-vertical-margin: 5.0;
+    -jfx-cell-horizontal-margin: 0;
+    -jfx-cell-vertical-margin: 5px;
     -jfx-expanded: false;
-    -fx-max-width: 200.0px;
+    -fx-max-width: 200px;
     /* important to hide the list change of height */
     -fx-background-color: TRANSPARENT;
 }
@@ -536,7 +536,7 @@
 }
 
 .custom-jfx-list-view1 {
-    -jfx-vertical-gap: 10.0;
+    -jfx-vertical-gap: 10px;
     -fx-pref-width: 150px;
     -fx-background-color: transparent;
 }
@@ -599,7 +599,7 @@
 }
 
 .sublist .jfx-list-cell {
-    -fx-background-insets: 0.0;
+    -fx-background-insets: 0;
     -fx-text-fill: BLACK;
 }
 
@@ -634,7 +634,7 @@
 }
 
 .toggle-label {
-    -fx-font-size: 14.0px;
+    -fx-font-size: 14px;
 }
 
 /*******************************************************************************
@@ -649,7 +649,7 @@
 }
 
 .first-spinner {
-    -jfx-radius: 20;
+    -jfx-radius: 20px;
 }
 
 .first-spinner > .arc {
@@ -657,7 +657,7 @@
 }
 
 .second-spinner {
-    -jfx-radius: 30;
+    -jfx-radius: 30px;
 }
 
 .second-spinner > .arc {
@@ -665,7 +665,7 @@
 }
 
 .third-spinner {
-    -jfx-radius: 40;
+    -jfx-radius: 40px;
 }
 
 .third-spinner > .arc {
@@ -673,7 +673,7 @@
 }
 
 .fourth-spinner {
-    -jfx-radius: 50;
+    -jfx-radius: 50px;
 }
 
 .fourth-spinner > .arc {
@@ -681,7 +681,7 @@
 }
 
 .fifth-spinner {
-    -jfx-radius: 60;
+    -jfx-radius: 60px;
 }
 
 .fifth-spinner > .arc {
@@ -689,7 +689,7 @@
 }
 
 .sixth-spinner {
-    -jfx-radius: 70;
+    -jfx-radius: 70px;
 }
 
 .sixth-spinner > .arc {
@@ -697,7 +697,7 @@
 }
 
 .seventh-spinner {
-    -jfx-radius: 80;
+    -jfx-radius: 80px;
 }
 
 .seventh-spinner > .arc {
@@ -884,7 +884,7 @@
 }
 
 .tree-table-row-cell .jfx-text-field {
-    -fx-focus-color: rgba(82, 100, 174);
+    -fx-focus-color: rgb(82, 100, 174);
 }
 
 .tree-table-row-cell .jfx-text-field:error {
@@ -903,7 +903,7 @@
 }
 
 .tree-table-row-group {
-    -fx-background-color: rgba(230, 230, 230);
+    -fx-background-color: rgb(230, 230, 230);
 }
 
 .tree-table-view .menu-item:focused {
