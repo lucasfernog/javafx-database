@@ -1,7 +1,6 @@
 package app.controllers;
 
 import app.controllers.model.query.ScheduleController;
-import app.controllers.model.query.VehicleController;
 import app.views.ExtendedAnimatedFlowContainer;
 import com.jfoenix.controls.*;
 import io.datafx.controller.ViewController;
@@ -10,8 +9,11 @@ import io.datafx.controller.flow.FlowException;
 import io.datafx.controller.flow.FlowHandler;
 import io.datafx.controller.flow.context.FXMLViewFlowContext;
 import io.datafx.controller.flow.context.ViewFlowContext;
-import javafx.animation.Transition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -37,25 +39,28 @@ public class MainController {
     private JFXHamburger mTitleBurger;
 
     @FXML
-    private JFXDrawer mDrawer;
+    private static JFXDrawer mDrawer;
+
+    @FXML
+    private static Label mTitle;
 
     public static StackPane getRoot() {
         return mRoot;
     }
 
+    public static void closeDrawer() {
+        final KeyFrame keyFrame = new KeyFrame(Duration.millis(50), e -> mDrawer.close());
+        final Timeline timeline = new Timeline(keyFrame);
+        Platform.runLater(timeline::play);
+    }
+
+    public static void setTitle(String title) {
+        mTitle.setText(title);
+    }
+
     @PostConstruct
     public void init() throws IOException, FlowException {
         // Drawer
-        mDrawer.setOnDrawerOpening(e -> {
-            final Transition animation = mTitleBurger.getAnimation();
-            animation.setRate(1);
-            animation.play();
-        });
-        mDrawer.setOnDrawerClosing(e -> {
-            final Transition animation = mTitleBurger.getAnimation();
-            animation.setRate(-1);
-            animation.play();
-        });
         mTitleBurgerContainer.setOnMouseClicked(e -> {
             if (mDrawer.isHidden() || mDrawer.isHidding()) {
                 mDrawer.open();

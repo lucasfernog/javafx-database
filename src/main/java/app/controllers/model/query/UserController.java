@@ -1,5 +1,6 @@
 package app.controllers.model.query;
 
+import app.controllers.MainController;
 import app.views.dialogs.ModelDialog;
 import app.views.dialogs.UserDialog;
 import app.views.textfields.FloatTextField;
@@ -72,6 +73,8 @@ public class UserController extends ModelQueryController<User> {
     @PostConstruct
     public void init() {
         super.init();
+
+        MainController.setTitle("Usuários");
 
         NodeUtils.setupCellValueFactory(mCodeColumn, User::primaryKeyProperty);
         NodeUtils.setupCellValueFactory(mNameColumn, User::nameProperty);
