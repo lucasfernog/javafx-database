@@ -1,4 +1,4 @@
-DROP SCHEMA IF EXISTS onibus CASCADE;
+ï»¿DROP SCHEMA IF EXISTS onibus CASCADE;
 CREATE SCHEMA onibus;
 
 DROP TABLE IF EXISTS onibus.fabricantes;
@@ -95,7 +95,7 @@ CREATE TABLE onibus.estudantes (
 	saldo FLOAT NOT NULL CHECK (saldo >= 0)
 );
 
-INSERT INTO onibus.tipos (descricao) VALUES ('Normal'), ('Sábado'), ('Feriado'), ('Férias');
+INSERT INTO onibus.tipos (descricao) VALUES ('Normal'), ('SÃ¡bado'), ('Feriado'), ('FÃ©rias');
 
 CREATE USER usuario PASSWORD 'senha';
 GRANT USAGE ON SCHEMA onibus TO usuario;
