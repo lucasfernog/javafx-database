@@ -12,11 +12,11 @@ public class Database {
 
     private static final String HOST = "localhost";
     private static final String PORT = "5432";
-    private static final String DATABASE_NAME = "app";
+    private static final String DATABASE_NAME = "postgres";
     private static final String SCHEMA = "onibus";
     private static final String URL = "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DATABASE_NAME + "?currentSchema=" + SCHEMA;
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "root";
+    private static final String USER = "usuario";
+    private static final String PASSWORD = "senha";
 
     private ExecutorService mDatabaseExecutor;
 
