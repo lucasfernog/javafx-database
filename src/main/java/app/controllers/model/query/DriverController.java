@@ -51,7 +51,7 @@ public class DriverController extends ModelQueryController<Driver> {
 
         String searchName = mSearchName.getText();
         if (!Utils.isEmpty(searchName))
-            query.where("nome", "LIKE", "%" + searchName + "%");
+            query.where("nome", "ILIKE", "%" + searchName + "%");
 
         String searchSalary = mSearchSalary.getText();
         if (!Utils.isEmpty(searchSalary))

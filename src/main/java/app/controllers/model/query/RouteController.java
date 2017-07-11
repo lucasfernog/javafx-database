@@ -48,7 +48,7 @@ public class RouteController extends ModelQueryController<Route> {
 
         String searchName = mSearchName.getText();
         if (!Utils.isEmpty(searchName))
-            query.where("nome", "LIKE", "%" + searchName + "%");
+            query.where("nome", "ILIKE", "%" + searchName + "%");
 
         String searchBusStopStreet = mSearchBusStopStreet.getText();
         if (!Utils.isEmpty(searchBusStopStreet))
@@ -56,7 +56,7 @@ public class RouteController extends ModelQueryController<Route> {
                     existsQuery.select("codigo")
                             .from("paradas_linhas")
                             .innerJoin("paradas", "paradas.codigo", "=", "parada")
-                            .where("rua", "like", "%" + searchBusStopStreet + "%")
+                            .where("rua", "ILIKE", "%" + searchBusStopStreet + "%")
                             .where("linha", "=", new Database.Column("codigo"))
             );
 

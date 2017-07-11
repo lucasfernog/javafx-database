@@ -62,7 +62,7 @@ public class VehicleController extends ModelQueryController<Vehicle> {
 
         String searchLicensePlate = mSearchLicensePlate.removeMask();
         if (!Utils.isEmpty(searchLicensePlate))
-            query.where("cast(placa as varchar(7))", "like", "%" + searchLicensePlate + "%");
+            query.where("cast(placa as varchar(7))", "ILIKE", "%" + searchLicensePlate + "%");
 
         //fabricante
         Runnable manufacturerFilter = () -> {

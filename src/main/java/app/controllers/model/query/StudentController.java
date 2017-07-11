@@ -49,7 +49,7 @@ public class StudentController extends ModelQueryController<Student> {
 
         String searchName = mSearchName.getText();
         if (!Utils.isEmpty(searchName))
-            query.where("nome", "LIKE", "%" + searchName + "%");
+            query.where("nome", "ILIKE", "%" + searchName + "%");
 
         String searchBalance = mSearchBalance.getText();
         if (!Utils.isEmpty(searchBalance))
