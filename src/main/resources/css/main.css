@@ -86,8 +86,6 @@
 
 .jfx-layout-body .label {
     -fx-font-size: 14px;
-    -fx-pref-width: 400px;
-    -fx-wrap-text: true;
 }
 
 .jfx-layout-actions {
