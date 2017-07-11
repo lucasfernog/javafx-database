@@ -1,5 +1,6 @@
 package app.controllers.model.query;
 
+import app.controllers.MainController;
 import app.views.dialogs.DriverDialog;
 import app.views.dialogs.ModelDialog;
 import app.views.textfields.FloatTextField;
@@ -75,6 +76,8 @@ public class DriverController extends ModelQueryController<Driver> {
     @PostConstruct
     public void init() {
         super.init();
+
+        MainController.setTitle("Motoristas");
 
         NodeUtils.setupCellValueFactory(mCodeColumn, Driver::primaryKeyProperty);
         NodeUtils.setupCellValueFactory(mNameColumn, Driver::nameProperty);

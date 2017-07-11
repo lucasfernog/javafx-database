@@ -1,5 +1,6 @@
 package app.controllers.model.query;
 
+import app.controllers.MainController;
 import app.views.dialogs.ModelDialog;
 import app.views.dialogs.VehicleDialog;
 import app.views.textfields.LicensePlateTextField;
@@ -104,6 +105,8 @@ public class VehicleController extends ModelQueryController<Vehicle> {
     @PostConstruct
     public void init() {
         super.init();
+
+        MainController.setTitle("Veículos");
 
         //fabricante
         mSearchManufacturer.setItems(Manufacturer.getAll());

@@ -1,5 +1,6 @@
 package app.controllers.model.query;
 
+import app.controllers.MainController;
 import app.views.ButtonColumn;
 import app.views.dialogs.ModelDialog;
 import com.jfoenix.controls.JFXButton;
@@ -39,6 +40,10 @@ public abstract class ModelQueryController<T extends Model<T>> {
     abstract QueryBuilder<T> getSearchQuery();
 
     abstract void clearQuery();
+
+    ModelQueryController() {
+        MainController.closeDrawer();
+    }
 
     Database.Callback<T> getCallback() {
         return new Database.Callback<T>() {

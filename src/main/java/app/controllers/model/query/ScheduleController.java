@@ -1,5 +1,6 @@
 package app.controllers.model.query;
 
+import app.controllers.MainController;
 import app.views.dialogs.ModelDialog;
 import app.views.dialogs.ScheduleDialog;
 import com.jfoenix.controls.JFXComboBox;
@@ -115,6 +116,8 @@ public class ScheduleController extends ModelQueryController<Schedule> {
     @PostConstruct
     public void init() {
         super.init();
+
+        MainController.setTitle("Horários");
 
         //tipo
         mSearchType.setItems(ScheduleType.getAll());

@@ -1,5 +1,6 @@
 package app.controllers.model.query;
 
+import app.controllers.MainController;
 import app.views.dialogs.ModelDialog;
 import app.views.dialogs.RouteDialog;
 import com.jfoenix.controls.JFXTextField;
@@ -78,6 +79,8 @@ public class RouteController extends ModelQueryController<Route> {
     @PostConstruct
     public void init() {
         super.init();
+
+        MainController.setTitle("Linhas");
 
         NodeUtils.setupCellValueFactory(mCodeColumn, Route::primaryKeyProperty);
         NodeUtils.setupCellValueFactory(mNameColumn, Route::nameProperty);
