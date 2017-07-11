@@ -69,10 +69,8 @@ public class Route extends NonCompositePrimaryKeyModel<Route> {
 
         if (mNewItineraries != null) {
             int index = 1;
-            for (Itinerary itinerary : mNewItineraries) {
+            for (Itinerary itinerary : mNewItineraries)
                 itinerary.setRouteId(id);
-                itinerary.setOrder(index++);
-            }
         }
 
         List<RouteBusStop> oldRouteBusStops = new ArrayList<>();

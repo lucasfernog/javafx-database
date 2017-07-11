@@ -21,6 +21,7 @@ public class Itinerary extends NonCompositePrimaryKeyModel<Itinerary> {
         Database.from(Itinerary.class)
                 .select("*")
                 .where("linha", "=", routeId)
+                .orderBy("ordem")
                 .execute(new Database.Callback<Itinerary>() {
                     public void onSuccess(Itinerary itinerary) {
                         list.add(itinerary);
