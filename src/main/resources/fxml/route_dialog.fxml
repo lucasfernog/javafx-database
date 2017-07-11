@@ -14,7 +14,7 @@
 <?import com.jfoenix.controls.JFXTreeTableColumn?>
 <?import app.views.EditableColumn?>
 <?import app.views.ButtonColumn?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" minWidth="700"
            fx:controller="app.controllers.model.dialog.RouteDialogController"
            xmlns="http://javafx.com/javafx/2.2">
     <JFXDialogLayout>
@@ -36,10 +36,11 @@
                 <!-- Parada -->
                 <AddEditComboBox fx:id="mBusStop" promptText="Parada" labelFloat="true" HBox.hgrow="ALWAYS"/>
                 <JFXTreeTableView fx:id="mBusStopTable">
+                    <columnResizePolicy><JFXTreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
                     <columns>
-                        <JFXTreeTableColumn fx:id="mBusStopCEPColumn" minWidth="200" text="CEP" resizable="false"/>
-                        <JFXTreeTableColumn fx:id="mBusStopStreetColumn" minWidth="300" text="Rua" resizable="false"/>
-                        <JFXTreeTableColumn fx:id="mBusStopNumberColumn" minWidth="133" text="Número" resizable="false"/>
+                        <JFXTreeTableColumn fx:id="mBusStopCEPColumn" text="CEP"/>
+                        <JFXTreeTableColumn fx:id="mBusStopStreetColumn" text="Rua"/>
+                        <JFXTreeTableColumn fx:id="mBusStopNumberColumn" text="Número"/>
                         <ButtonColumn fx:id="mBusStopEditColumn" styleClass="column-edit"/>
                         <ButtonColumn fx:id="mBusStopRemoveColumn" styleClass="column-remove"/>
                     </columns>
@@ -48,10 +49,12 @@
                 <!-- Itinerário -->
                 <JFXButton fx:id="mAddItineraryButton" styleClass="btn-success" text="Adicionar Itinerário"/>
                 <JFXTreeTableView fx:id="mItineraryTable" editable="true">
+                    <columnResizePolicy><JFXTreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
                     <columns>
-                        <EditableColumn fx:id="mItineraryStreetColumn" minWidth="200" text="Rua"/>
-                        <EditableColumn fx:id="mItineraryStartBlockColumn" minWidth="133" text="Quadra inicial" type="int"/>
-                        <EditableColumn fx:id="mItineraryEndBlockColumn" minWidth="133" text="Quadra final" type="int"/>
+                        <EditableColumn fx:id="mItineraryOrderColumn" text="Ordem" type="int"/>
+                        <EditableColumn fx:id="mItineraryStreetColumn" text="Rua"/>
+                        <EditableColumn fx:id="mItineraryStartBlockColumn" text="Quadra inicial" type="int"/>
+                        <EditableColumn fx:id="mItineraryEndBlockColumn" text="Quadra final" type="int"/>
                         <ButtonColumn fx:id="mItineraryRemoveColumn" styleClass="column-remove"/>
                     </columns>
                 </JFXTreeTableView>

@@ -32,11 +32,13 @@ public class RouteDialogController extends ModelDialogController<Route> {
     @FXML
     private JFXTreeTableView<Itinerary> mItineraryTable;
     @FXML
+    private JFXTreeTableColumn<Itinerary, Number> mItineraryOrderColumn;
+    @FXML
     private JFXTreeTableColumn<Itinerary, String> mItineraryStreetColumn;
     @FXML
-    private JFXTreeTableColumn<Itinerary, Integer> mItineraryStartBlockColumn;
+    private JFXTreeTableColumn<Itinerary, Number> mItineraryStartBlockColumn;
     @FXML
-    private JFXTreeTableColumn<Itinerary, Integer> mItineraryEndBlockColumn;
+    private JFXTreeTableColumn<Itinerary, Number> mItineraryEndBlockColumn;
     @FXML
     private ButtonColumn<Itinerary> mItineraryRemoveColumn;
     @FXML
@@ -49,11 +51,11 @@ public class RouteDialogController extends ModelDialogController<Route> {
     @FXML
     private JFXTreeTableView<BusStop> mBusStopTable;
     @FXML
-    private JFXTreeTableColumn<BusStop, Integer> mBusStopCEPColumn;
+    private JFXTreeTableColumn<BusStop, Number> mBusStopCEPColumn;
     @FXML
     private JFXTreeTableColumn<BusStop, String> mBusStopStreetColumn;
     @FXML
-    private JFXTreeTableColumn<BusStop, Integer> mBusStopNumberColumn;
+    private JFXTreeTableColumn<BusStop, Number> mBusStopNumberColumn;
     @FXML
     private ButtonColumn<BusStop> mBusStopEditColumn;
     @FXML
@@ -124,9 +126,16 @@ public class RouteDialogController extends ModelDialogController<Route> {
         mReverseRoute.getItems().add(0, new Route());
 
         //Itinerários
-        mAddItineraryButton.setOnAction(e -> mItineraries.add(new Itinerary()));
+        mAddItineraryButton.setOnAction(e -> {
+            Itinerary itinerary = new Itinerary();
+            itinerary.setOrder(mItineraries.size() + 1);
+            mItineraries.add(itinerary);
+        });
 
-        mItineraryRemoveColumn.setOnButtonClickListener(index -> mItineraries.remove(index));
+        mItineraryRemoveColumn.setOnButtonClickListener(index -> {
+            mItineraries.remove(index);
+            mItineraryTable.setRoot(new RecursiveTreeItem<>(mItineraries, RecursiveTreeObject::getChildren));
+        });
 
         mItineraryTable.setRoot(new RecursiveTreeItem<>(mItineraries, RecursiveTreeObject::getChildren));
         mItineraryTable.setShowRoot(false);
@@ -134,11 +143,14 @@ public class RouteDialogController extends ModelDialogController<Route> {
         NodeUtils.setupCellValueFactory(mItineraryStreetColumn, Itinerary::streetProperty);
         NodeUtils.setupEditableColumn(mItineraryStreetColumn, Itinerary::streetProperty);
 
-        NodeUtils.setupCellValueFactory(mItineraryStartBlockColumn, itinerary -> itinerary.startBlockProperty().asObject());
-        NodeUtils.setupEditableColumn(mItineraryStartBlockColumn, itinerary -> itinerary.startBlockProperty().asObject());
+        NodeUtils.setupCellValueFactory(mItineraryOrderColumn, Itinerary::orderProperty);
+        NodeUtils.setupEditableColumn(mItineraryOrderColumn, Itinerary::orderProperty);
 
-        NodeUtils.setupCellValueFactory(mItineraryEndBlockColumn, itinerary -> itinerary.endBlockProperty().asObject());
-        NodeUtils.setupEditableColumn(mItineraryEndBlockColumn, itinerary -> itinerary.endBlockProperty().asObject());
+        NodeUtils.setupCellValueFactory(mItineraryStartBlockColumn, Itinerary::startBlockProperty);
+        NodeUtils.setupEditableColumn(mItineraryStartBlockColumn, Itinerary::startBlockProperty);
+
+        NodeUtils.setupCellValueFactory(mItineraryEndBlockColumn, Itinerary::endBlockProperty);
+        NodeUtils.setupEditableColumn(mItineraryEndBlockColumn, Itinerary::endBlockProperty);
 
         //Paradas
         mBusStop.setDialogSupplier(item -> new BusStopDialog(MainController.getRoot(), item));
@@ -167,9 +179,9 @@ public class RouteDialogController extends ModelDialogController<Route> {
         mBusStopTable.setRoot(new RecursiveTreeItem<>(mBusStops, RecursiveTreeObject::getChildren));
         mBusStopTable.setShowRoot(false);
 
-        NodeUtils.setupCellValueFactory(mBusStopCEPColumn, busStop -> busStop.cepProperty().asObject());
+        NodeUtils.setupCellValueFactory(mBusStopCEPColumn, BusStop::cepProperty);
         NodeUtils.setupCellValueFactory(mBusStopStreetColumn, BusStop::streetProperty);
-        NodeUtils.setupCellValueFactory(mBusStopNumberColumn, busStop -> busStop.numberProperty().asObject());
+        NodeUtils.setupCellValueFactory(mBusStopNumberColumn, BusStop::numberProperty);
 
     }
 }
