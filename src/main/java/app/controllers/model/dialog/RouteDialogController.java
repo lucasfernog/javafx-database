@@ -159,6 +159,7 @@ public class RouteDialogController extends ModelDialogController<Route> {
         mBusStop.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.getPrimaryKey() > 0) {
                 mBusStops.add(newValue);
+                mBusStop.getSelectionModel().select(0);
                 mBusStop.getItems().remove(newValue);
                 mBusStop.hide(); //workaround
             }
