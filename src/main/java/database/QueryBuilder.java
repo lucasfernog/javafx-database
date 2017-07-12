@@ -235,11 +235,14 @@ public class QueryBuilder<T extends Model> {
                         .append(" ");
         }
 
-        query.append(Utils.join(",", mGroupBy))
-                .append(" ")
-                .append(mHaving)
-                .append(" ")
-                .append(Utils.join(",", mOrderBy));
+        if (mGroupBy.length > 0)
+            query.append(" GROUP BY").append(Utils.join(",", mGroupBy));
+
+        if (!Utils.isEmpty(mHaving))
+            query.append(" HAVING ").append(mHaving);
+
+        if (mOrderBy.length > 0)
+            query.append(" ORDER BY ").append(Utils.join(",", mOrderBy));
 
         return query.toString();
     }
