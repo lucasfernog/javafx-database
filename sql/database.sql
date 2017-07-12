@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS onibus.linhas;
 CREATE TABLE onibus.linhas (
 	codigo SERIAL NOT NULL PRIMARY KEY,
 	nome VARCHAR (255) NOT NULL,
-	linha_contraria INTEGER CONSTRAINT linha_contraria_fk REFERENCES onibus.linhas (codigo)
+	linha_contraria INTEGER CONSTRAINT linha_contraria_fk REFERENCES onibus.linhas (codigo) ON DELETE SET NULL ON UPDATE NO ACTION
 );
 
 DROP TABLE IF EXISTS onibus.tipos;
